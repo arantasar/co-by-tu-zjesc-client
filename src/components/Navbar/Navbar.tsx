@@ -1,26 +1,23 @@
 import * as React from "react";
-import styled from "styled-components";
-import Logo from "./Logo";
-import Link from "./Link";
-import "./Navbar.scss";
-
-const Nav = styled.nav`
-  background-color: white;
-  box-shadow: 2px 0 10px 2px;
-  position: fixed;
-  width: 100%;
-`;
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 
 const Navbar: React.FC = () => {
   return (
-    <Nav>
-      <div className="App-container flex flex-center-vertical height-full">
-        <Logo />
-        <div className="spacer"></div>
-        <Link text="login"></Link>
-        <Link text="register"></Link>
-      </div>
-    </Nav>
+    <AppBar position="fixed">
+      <Container fixed>
+        <Toolbar>
+          <Typography variant="h6" className="spacer">
+            CoByTuZjeść?
+          </Typography>
+          <Button>Login</Button>
+          <Button>Register</Button>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 

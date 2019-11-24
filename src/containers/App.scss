@@ -1,0 +1,25 @@
+.spacer {
+  flex-grow: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center-vertical {
+  align-items: center;
+}
+
+.height-full {
+  height: 100%;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.hoverable {
+  &:hover {
+    cursor: pointer;
+  }
+}
