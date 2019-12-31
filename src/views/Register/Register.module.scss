@@ -1,0 +1,14 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+picture {
+  height: 100vh;
+}
+
+.image {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}

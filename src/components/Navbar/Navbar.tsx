@@ -4,17 +4,33 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import { NavLink } from "react-router-dom";
+import UserContext from "./../../context/user-context";
 
 const Navbar: React.FC = () => {
+  const userContext = React.useContext(UserContext);
+
+  const buttons = userContext.isUserLogged ? (
+    <Button>Profile</Button>
+  ) : (
+    <>
+      <NavLink to="/login" activeClassName="linkActive">
+        <Button>Login</Button>
+      </NavLink>
+      <NavLink to="/register" activeClassName="linkActive">
+        <Button>Register</Button>
+      </NavLink>
+    </>
+  );
+
   return (
     <AppBar position="fixed">
-      <Container fixed>
+      <Container>
         <Toolbar>
-          <Typography variant="h6" className="spacer">
-            CoByTuZjeść?
-          </Typography>
-          <Button>Login</Button>
-          <Button>Register</Button>
+          <NavLink to="/" className="spacer">
+            <Typography variant="h6">CoByTuZjeść?</Typography>
+          </NavLink>
+          {buttons}
         </Toolbar>
       </Container>
     </AppBar>
