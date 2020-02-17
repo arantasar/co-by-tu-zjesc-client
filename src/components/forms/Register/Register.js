@@ -32,7 +32,7 @@ const RegisterForm = props => {
         error={touched.name && Boolean(errors.name)}
         required
         variant="outlined"
-        label="Username"
+        label="Nazwa użytkownika"
         value={name}
         onChange={change.bind(null, "name")}
       />
@@ -57,7 +57,7 @@ const RegisterForm = props => {
         required
         helperText={touched.password ? errors.password : ""}
         error={touched.password && Boolean(errors.password)}
-        label="Password"
+        label="Hasło"
         variant="outlined"
         type="password"
         value={password}
@@ -70,7 +70,7 @@ const RegisterForm = props => {
         required
         helperText={touched.passwordConfirm ? errors.passwordConfirm : ""}
         error={touched.passwordConfirm && Boolean(errors.passwordConfirm)}
-        label="Confirm Password"
+        label="Powtórz hasło"
         variant="outlined"
         type="password"
         value={passwordConfirm}
@@ -83,7 +83,7 @@ const RegisterForm = props => {
           color="secondary"
           type="submit"
         >
-          Create Account
+          Załóż konto
         </Button>
       </Box>
     </form>

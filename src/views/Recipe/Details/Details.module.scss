@@ -1,0 +1,47 @@
+.details {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 300px;
+  background-color: #f7f7f7;
+  padding: 50px;
+  width: 600px;
+  text-align: center;
+}
+
+.buttons {
+  position: absolute;
+  top: 220px;
+  right: -220px;
+}
+
+.dsc {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.ingredients {
+  display: inline-flex;
+}
+
+.ingredient {
+  margin: 0 5px;
+  text-decoration: underline;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

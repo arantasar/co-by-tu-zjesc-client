@@ -5,17 +5,17 @@ import RegisterForm from "./Register";
 import axios from "axios";
 
 const validationSchema = object({
-  name: string("Enter a name").required("Name is required"),
-  email: string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
+  name: string("Nazwa użytkownika").required("Pole jest wymagane"),
+  email: string("Adres email")
+    .email("Niepoprawny format")
+    .required("Pole jest wymagane"),
   password: string("")
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .required("Pole jest wymagane")
+    .min(6, "Minimalna długość hasła - 6 znaków"),
   passwordConfirm: string("")
-    .required("Password is required")
-    .oneOf([ref("password")], "Both password need to be the same")
-    .min(6, "Password must be at least 6 characters long")
+    .required("Pole jest wymagane")
+    .oneOf([ref("password")], "Hasła nie są takie same")
+    .min(6, "Minimalna długość hasła - 6 znaków")
 });
 
 const Register = props => {

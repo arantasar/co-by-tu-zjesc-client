@@ -5,10 +5,10 @@ import RegisterForm from "./Login";
 import axios from "axios";
 
 const validationSchema = object({
-  email: string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: string("").required("Password is required")
+  email: string("Adres email")
+    .email("Niepoprawny format")
+    .required("Pole jest wymagane"),
+  password: string("").required("Pole jest wymagane")
 });
 
 const Login = props => {
@@ -26,7 +26,7 @@ const Login = props => {
         ...user
       })
       .then(res => {
-        console.log(res);
+        // console.log(res);
       });
   };
 

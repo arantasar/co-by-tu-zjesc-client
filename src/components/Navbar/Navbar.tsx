@@ -11,14 +11,14 @@ const Navbar: React.FC = () => {
   const userContext = React.useContext(UserContext);
 
   const buttons = userContext.isUserLogged ? (
-    <Button>Profile</Button>
+    <Button>Profil</Button>
   ) : (
     <>
       <NavLink to="/login" activeClassName="linkActive">
-        <Button>Login</Button>
+        <Button>Zaloguj</Button>
       </NavLink>
       <NavLink to="/register" activeClassName="linkActive">
-        <Button>Register</Button>
+        <Button>Rejestracja</Button>
       </NavLink>
     </>
   );

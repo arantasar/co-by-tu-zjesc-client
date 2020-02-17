@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.asideWrapper {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  &:first-of-type {
+    margin-top: 20px;
+  }
+
+  .aside {
+    font-size: 16px;
+    margin-left: 10px;
+  }
+}
+

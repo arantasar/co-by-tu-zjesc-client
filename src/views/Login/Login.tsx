@@ -1,4 +1,6 @@
 import * as React from "react";
+import WithModal from "../../hoc/WithModal/WithModal";
+import axios from "axios";
 
 import LoginForm from "../../components/forms/Login/LoginWrapper";
 import styles from "./Login.module.scss";
@@ -15,4 +17,10 @@ const LoginView = () => (
   </div>
 );
 
-export default LoginView;
+export default WithModal(
+  LoginView,
+  function() {
+    console.log("haha");
+  },
+  axios
+);

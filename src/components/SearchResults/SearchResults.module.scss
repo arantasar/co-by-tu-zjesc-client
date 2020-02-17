@@ -1,0 +1,25 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  padding-top: 60px;
+}
+
+.link {
+  color: var(--pink);
+}
+
+.shortLine {
+  width: 80px;
+  height: 2px;
+  background-color: black;
+}
+
+.time {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.picture {
+  width: 100%;
+}

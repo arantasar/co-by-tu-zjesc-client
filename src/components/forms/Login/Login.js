@@ -1,11 +1,13 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
+// import userContext from "./../../../context/user-context";
 import styles from "./Login.module.css";
 import { Box } from "@material-ui/core";
 
 const RegisterForm = props => {
+  // const context = React.useContext(userContext);
+
   const {
     errors,
     touched,
@@ -45,7 +47,7 @@ const RegisterForm = props => {
         required
         helperText={touched.password ? errors.password : ""}
         error={touched.password && Boolean(errors.password)}
-        label="Password"
+        label="Hasło"
         variant="outlined"
         type="password"
         value={password}
@@ -58,7 +60,7 @@ const RegisterForm = props => {
           color="secondary"
           type="submit"
         >
-          Login
+          Zaloguj
         </Button>
       </Box>
     </form>

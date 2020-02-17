@@ -1,0 +1,13 @@
+.opposite {
+  display: flex;
+  justify-content: space-between;
+
+  &Item {
+    display: flex;
+    align-items: center;
+
+    &Value {
+      margin: 0 5px;
+    }
+  }
+}

@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #f7f7f7;
+}
+
 .linkActive {
   background-color: #ee24c4;
   span {
@@ -47,4 +51,5 @@ a {
 
 :root {
   --gray: #707070;
+  --pink: #ee24c4;
 }
