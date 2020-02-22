@@ -15,6 +15,9 @@ import sizesArray from "../../data/Sizes";
 
 const Search = ({search}) => {
 
+    // TODO: Refactor into two smaller components
+    // TODO: DRY
+
     const [ingredients, setIngredients] = useState(new Set());
     const [categories, setCategories] = useState(new Set());
     const [filters, setFilters] = useState(new Set());
