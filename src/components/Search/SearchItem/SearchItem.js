@@ -1,18 +1,14 @@
 import React from "react";
-import styles from "./Sizes.module.scss";
+import styles from "./SearchItem.module.scss";
 import KeyboardArrowDownOutlinedIcon from "@material-ui/icons/KeyboardArrowDownOutlined";
 import KeyboardArrowUpOutlinedIcon from "@material-ui/icons/KeyboardArrowUpOutlined";
 
-const Sizes = ({ingredients, headerClass, toggleList, active}) => {
-    const headerClassUse = headerClass || styles.headerClassDefault;
-
-    const selectedSizes = ingredients.map(item => item.name).join(", ");
-
+const SearchItem = ({item, isActive, activate}) => {
     const Arrow = () => {
         const style = {height: "30px", width: "30px"};
         const className = [styles.after, "hoverable"].join(" ");
 
-        return active ? (
+        return isActive ? (
             <KeyboardArrowUpOutlinedIcon style={style} className={className}/>
         ) : (
             <KeyboardArrowDownOutlinedIcon style={style} className={className}/>
@@ -22,20 +18,22 @@ const Sizes = ({ingredients, headerClass, toggleList, active}) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.selection}>
-                <div className={headerClassUse}>Wielkość:</div>
+                <div className={styles.headerClassDefault}>{item.name}:</div>
                 <div
                     className={[styles.select, "hoverable"].join(" ")}
-                    onClick={toggleList}
+                    onClick={() => {
+                        activate(item.id)
+                    }}
                 >
-                    <div>Wybierz</div>
+                    <div className={styles.placeholder}>{item.placeholderText}</div>
                     <Arrow/>
                 </div>
             </div>
             <div className={styles.selected}>
-                Wybrana wielkość: {selectedSizes}
+                Wybrane: {item.selected}
             </div>
         </div>
     );
 };
 
-export default Sizes;
+export default SearchItem;
