@@ -30,7 +30,7 @@ const SearchItem = ({item, isActive, activate}) => {
                 </div>
             </div>
             <div className={styles.selected}>
-                Wybrane: {item.selected}
+                Wybrane: {item.selected.map(item => item.name).join(", ")}
             </div>
         </div>
     );

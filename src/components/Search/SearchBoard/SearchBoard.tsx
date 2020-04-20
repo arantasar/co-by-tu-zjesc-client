@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 
 import styles from "./SearchBoard.module.scss";
 import {Checkbox, FormControlLabel} from "@material-ui/core";
@@ -16,20 +16,24 @@ interface SearchBoardProps {
         items: Ingredient[],
         selected: Ingredient[]
     },
-    visible: boolean
+    visible: boolean,
+    changeHandler(ingredient: Ingredient): void
 }
 
 const SearchBoard: React.FC<SearchBoardProps> =
     ({
-         offset = 0, item = {}
+         offset, item, changeHandler
      }) => {
-        let items: any[] = [];
-        if (item && item.items) {
-            items = item.items.map(item => (
+
+    const checked = (ingredient: Ingredient) => item.selected.map(item => item.id).includes(ingredient.id);
+
+        let items: ReactElement[] = [];
+        if (item && item.id && item.items) {
+            items = item.items.map(ingredient => (
                 <FormControlLabel
-                    key={item.id}
-                    control={<Checkbox />}
-                    label={item.name}
+                    key={ingredient.id}
+                    control={<Checkbox checked={checked(ingredient)} onChange={() => changeHandler(ingredient)} />}
+                    label={ingredient.name}
                 />
             ))
         }

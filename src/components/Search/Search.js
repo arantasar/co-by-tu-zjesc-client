@@ -9,7 +9,7 @@ import SearchBoard from "./SearchBoard/SearchBoard";
 import SearchSelector from "./SearchSelector/SearchSelector";
 
 const Search = () => {
-    const items = [
+    const dbItems = [
         {
             id: 1,
             name: "Składniki",
@@ -40,6 +40,7 @@ const Search = () => {
     const [active, setActive] = useState("");
     const [selected, setSelected] = useState(null);
     const [offset, setOffset] = useState(0);
+    const [items, setItems] = useState(dbItems);
 
     const selectHandler = id => {
         if (active === id) {
@@ -53,6 +54,26 @@ const Search = () => {
         }
     };
 
+    const changeHandler = ingredient => {
+        let selectedIngredients = [ ...selected.selected ];
+
+        if (!selectedIngredients.map(item => item.id).includes(ingredient.id)) {
+            selectedIngredients.push(ingredient);
+        } else {
+            selectedIngredients = selectedIngredients.filter(item => item.id !== ingredient.id);
+        }
+
+        const newSelected = JSON.parse( JSON.stringify(selected) );
+        newSelected.selected = selectedIngredients;
+
+        const newItems = JSON.parse( JSON.stringify(items) );
+        const idx = newItems.findIndex(item => item.id === selected.id);
+        newItems[idx].selected = selectedIngredients;
+
+        setSelected(newSelected);
+        setItems(newItems);
+    }
+
     return (
         <section className={styles.wrapper}>
             <Container>
@@ -60,7 +81,7 @@ const Search = () => {
                 <hr/>
                 <SearchSelector items={items} select={selectHandler} active={active}/>
                 <hr/>
-                <SearchBoard visible={active} item={selected} offset={offset}/>
+                <SearchBoard visible={active} item={selected} changeHandler={changeHandler} offset={offset}/>
             </Container>
         </section>
     );
