@@ -5,7 +5,7 @@ import Details from "./Details/Details";
 
 export interface RecipeProps {}
 
-const Recipe = (props: RecipeProps) => (
+const Recipe = () => (
   <div className={styles.background}>
     <img src={defaultPhotoJpg} alt="Name" />
     <Details />

@@ -10,7 +10,7 @@ const recipeCardsArr: RecipeCardProps[] = [
     name: "Spaghetti Bolognese",
     views: 12,
     stars: 3,
-    likes: 12
+    likes: 12,
   },
   {
     id: "2",
@@ -21,7 +21,7 @@ const recipeCardsArr: RecipeCardProps[] = [
     name: "Spaghetti Bolognese",
     views: 12,
     stars: 3,
-    likes: 12
+    likes: 12,
   },
   {
     id: "3",
@@ -32,7 +32,7 @@ const recipeCardsArr: RecipeCardProps[] = [
     name: "Spaghetti Bolognese",
     views: 12,
     stars: 3,
-    likes: 12
+    likes: 12,
   },
   {
     id: "4",
@@ -43,8 +43,8 @@ const recipeCardsArr: RecipeCardProps[] = [
     name: "Spaghetti Bolognese",
     views: 12,
     stars: 3,
-    likes: 12
-  }
+    likes: 12,
+  },
 ];
 
 export default recipeCardsArr;

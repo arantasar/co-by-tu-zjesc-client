@@ -12,13 +12,13 @@ const RouterSwitch = () => {
     { path: "/login", component: LoginView },
     {
       path: "/",
-      component: HomeView
-    }
+      component: HomeView,
+    },
   ];
 
   return (
     <Switch>
-      {links.map(link => (
+      {links.map((link) => (
         <Route path={link.path} key={link.path} component={link.component} />
       ))}
     </Switch>

@@ -15,27 +15,27 @@ const validationSchema = object({
   passwordConfirm: string("")
     .required("Pole jest wymagane")
     .oneOf([ref("password")], "Hasła nie są takie same")
-    .min(6, "Minimalna długość hasła - 6 znaków")
+    .min(6, "Minimalna długość hasła - 6 znaków"),
 });
 
-const Register = props => {
+const Register = () => {
   const initialValues = {
     name: "",
     email: "",
     password: "",
-    passwordConfirm: ""
+    passwordConfirm: "",
   };
-  const onSubmit = ({ name, email, password }, bag) => {
+  const onSubmit = ({ name, email, password }) => {
     const user = {
       email,
       password,
-      name
+      name,
     };
     axios
       .post("http://weirdy.arantasar.hostingasp.pl/home/create", {
-        ...user
+        ...user,
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
       });
   };
@@ -46,7 +46,7 @@ const Register = props => {
       initialValues={initialValues}
       validationSchema={validationSchema}
     >
-      {props => <RegisterForm {...props} />}
+      {(props) => <RegisterForm {...props} />}
     </Formik>
   );
 };

@@ -7,7 +7,6 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 // import styles from "./Home.module.scss";
 
 const HomeView = () => {
-
   return (
     <>
       <Hero>

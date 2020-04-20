@@ -13,6 +13,6 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Hero: React.FC = props => <Wrapper>{props.children}</Wrapper>;
+const Hero: React.FC = (props) => <Wrapper>{props.children}</Wrapper>;
 
 export default Hero;

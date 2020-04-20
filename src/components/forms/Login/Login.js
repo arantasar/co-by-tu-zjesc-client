@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import styles from "./Login.module.css";
 import { Box } from "@material-ui/core";
 
-const RegisterForm = props => {
+const RegisterForm = (props) => {
   // const context = React.useContext(userContext);
 
   const {
@@ -15,7 +15,7 @@ const RegisterForm = props => {
     isValid,
     handleChange,
     setFieldTouched,
-    values: { email, password }
+    values: { email, password },
   } = props;
 
   const change = (name, e) => {
@@ -36,7 +36,7 @@ const RegisterForm = props => {
         variant="outlined"
         label="Email"
         value={email}
-        onChange={e => {
+        onChange={(e) => {
           change("email", e);
         }}
       />

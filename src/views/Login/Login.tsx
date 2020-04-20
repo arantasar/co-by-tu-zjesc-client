@@ -19,7 +19,7 @@ const LoginView = () => (
 
 export default WithModal(
   LoginView,
-  function() {
+  function () {
     console.log("haha");
   },
   axios

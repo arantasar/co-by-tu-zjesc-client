@@ -8,24 +8,24 @@ const validationSchema = object({
   email: string("Adres email")
     .email("Niepoprawny format")
     .required("Pole jest wymagane"),
-  password: string("").required("Pole jest wymagane")
+  password: string("").required("Pole jest wymagane"),
 });
 
-const Login = props => {
+const Login = () => {
   const initialValues = {
     email: "",
-    password: ""
+    password: "",
   };
-  const onSubmit = ({ email, password }, bag) => {
+  const onSubmit = ({ email, password }) => {
     const user = {
       email,
-      password
+      password,
     };
     axios
       .post("http://weirdy.arantasar.hostingasp.pl/home/create", {
-        ...user
+        ...user,
       })
-      .then(res => {
+      .then(() => {
         // console.log(res);
       });
   };
@@ -36,7 +36,7 @@ const Login = props => {
       initialValues={initialValues}
       validationSchema={validationSchema}
     >
-      {props => <RegisterForm {...props} />}
+      {(props) => <RegisterForm {...props} />}
     </Formik>
   );
 };

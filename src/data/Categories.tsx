@@ -3,16 +3,16 @@ import CategoryProps from "./../interfaces/CategoryProps";
 const categoriesArray: CategoryProps[] = [
   {
     id: 1,
-    name: "Zupy"
+    name: "Zupy",
   },
   {
     id: 2,
-    name: "Przystawki"
+    name: "Przystawki",
   },
   {
     id: 3,
-    name: "Dania główne"
-  }
+    name: "Dania główne",
+  },
 ];
 
 export default categoriesArray;

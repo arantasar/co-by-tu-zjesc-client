@@ -5,7 +5,7 @@ import styles from "./RecipeCards.module.scss";
 import recipeCardsArr from "./../../data/Recipes";
 import { Link } from "react-router-dom";
 
-const recipeCards: React.FC = props => {
+const recipeCards: React.FC = () => {
   const recipeCards = recipeCardsArr.map((card, index) => (
     <Link key={index} to={"/recipe/" + card.id}>
       <RecipeCard {...card} />

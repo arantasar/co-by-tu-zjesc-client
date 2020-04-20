@@ -3,24 +3,24 @@ import FilterProps from "./../interfaces/FilterProps";
 const filtersArray: FilterProps[] = [
   {
     id: 1,
-    name: "Wegetariańskie"
+    name: "Wegetariańskie",
   },
   {
     id: 2,
-    name: "Wegańskie"
+    name: "Wegańskie",
   },
   {
     id: 3,
-    name: "Bezglutenowe"
+    name: "Bezglutenowe",
   },
   {
     id: 4,
-    name: "Mięsne"
+    name: "Mięsne",
   },
   {
     id: 5,
-    name: "Bez orzechów"
-  }
+    name: "Bez orzechów",
+  },
 ];
 
 export default filtersArray;

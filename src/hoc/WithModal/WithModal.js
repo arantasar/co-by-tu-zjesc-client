@@ -6,7 +6,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
-const withModal = (WrappedComponent, clickHandler, axios) => props => {
+const withModal = (WrappedComponent, clickHandler, axios) => (props) => {
   const [error, setError] = useState("");
 
   const closeHandler = () => {
@@ -15,17 +15,17 @@ const withModal = (WrappedComponent, clickHandler, axios) => props => {
   };
 
   useEffect(() => {
-    const req = axios.interceptors.request.use(req => {
+    const req = axios.interceptors.request.use((req) => {
       setError("");
       return req;
     });
     const res = axios.interceptors.response.use(
-      res => {
+      (res) => {
         console.log(res.data);
         setError(res.data);
         return res;
       },
-      error => {
+      (error) => {
         setError(error.response.data);
         return Promise.reject(error);
       }
