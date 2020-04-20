@@ -1,7 +1,9 @@
 import React, {ReactElement} from "react";
 
 import styles from "./SearchBoard.module.scss";
+import "./SearchBoard.scss";
 import {Checkbox, FormControlLabel} from "@material-ui/core";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 interface Ingredient {
     id: number,
@@ -44,12 +46,16 @@ const SearchBoard: React.FC<SearchBoardProps> =
         }
         let offsetDivs = baseArray.map((item, index) => (<div key={index}> </div>))
 
-        return (<div className={styles.wrapper}>
-            {offsetDivs}
-            <div className={styles.items}>
-                {items}
-            </div>
-        </div>);
+        return (
+            <CSSTransition timeout={300} in={!!(item && item.items)} classNames="roll">
+                <div className={styles.wrapper}>
+                {offsetDivs}
+                    <div className={styles.items}>
+                        {items}
+                    </div>
+                </div>
+            </CSSTransition>
+        );
     };
 
 export default SearchBoard;
