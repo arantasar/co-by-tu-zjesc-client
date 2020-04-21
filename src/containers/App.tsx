@@ -1,5 +1,6 @@
 import * as React from "react";
 import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 import theme from "../theme";
 import { ThemeProvider } from "@material-ui/styles";
 import UserContext from "./../context/user-context";
@@ -11,8 +12,8 @@ const App: React.FC = () => {
   const [user, setUser] = React.useState({});
   const [isUserLogged, setIsUserLogged] = React.useState(false);
 
-  const login = (input: Object) => {
-    setUser(input);
+  const login = () => {
+    setUser("");
     setIsUserLogged(true);
   };
 
@@ -24,6 +25,7 @@ const App: React.FC = () => {
         <Router>
           <Navbar />
           <RouterSwitch />
+          <Footer />
         </Router>
       </UserContext.Provider>
     </ThemeProvider>
