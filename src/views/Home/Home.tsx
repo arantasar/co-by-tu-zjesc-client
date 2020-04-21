@@ -3,11 +3,11 @@ import PaperBox from "../../components/Hero/PaperBox/PaperBox";
 import RecipeCards from "../../components/RecipeCards/RecipeCards";
 import Search from "../../components/Search/Search";
 import SearchResults from "../../components/SearchResults/SearchResults";
-import * as React from "react";
+import React, { useState } from "react";
 // import styles from "./Home.module.scss";
 
 const HomeView = () => {
-  const [showResults, setShowResults] = React.useState(false);
+  const [showResults, setShowResults] = useState(false);
   const handleSearch = () => {
     setShowResults(true);
   };

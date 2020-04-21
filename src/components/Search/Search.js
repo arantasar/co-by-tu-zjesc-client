@@ -68,15 +68,17 @@ const Search = (props) => {
       );
     }
 
-    const newSelected = JSON.parse(JSON.stringify(selected));
-    newSelected.selected = selectedIngredients;
+    setSelected((prevState) => ({
+      ...prevState,
+      selected: selectedIngredients,
+    }));
 
-    const newItems = JSON.parse(JSON.stringify(items));
-    const idx = newItems.findIndex((item) => item.id === selected.id);
-    newItems[idx].selected = selectedIngredients;
-
-    setSelected(newSelected);
-    setItems(newItems);
+    setItems((prevState) => {
+      const newItems = JSON.parse(JSON.stringify(prevState));
+      const idx = prevState.findIndex((item) => item.id === selected.id);
+      newItems[idx].selected = selectedIngredients;
+      return newItems;
+    });
   };
 
   return (
