@@ -8,7 +8,7 @@ import sizes from "../../data/Sizes";
 import SearchBoard from "./SearchBoard/SearchBoard";
 import SearchSelector from "./SearchSelector/SearchSelector";
 
-const Search = () => {
+const Search = (props) => {
   const dbItems = [
     {
       id: 1,
@@ -84,7 +84,12 @@ const Search = () => {
       <Container>
         <h2 className={styles.header}>Przepisy</h2>
         <hr />
-        <SearchSelector items={items} select={selectHandler} active={active} />
+        <SearchSelector
+          items={items}
+          select={selectHandler}
+          active={active}
+          handleSearch={props.handleSearch}
+        />
         <hr />
         <SearchBoard
           visible={active}

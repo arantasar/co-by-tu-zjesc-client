@@ -3,7 +3,7 @@ import styles from "./SearchSelector.module.scss";
 import SearchItem from "../SearchItem/SearchItem";
 import Button from "@material-ui/core/Button";
 
-const SearchSelector = ({ items, active, select }) => {
+const SearchSelector = ({ items, active, select, handleSearch }) => {
   return (
     <div className={styles.Wrapper}>
       {items.map((item) => (
@@ -14,9 +14,16 @@ const SearchSelector = ({ items, active, select }) => {
           activate={select}
         />
       ))}
-      <Button variant="contained" color="secondary">
-        Szukaj
-      </Button>
+      <div className={styles.buttonWrapper}>
+        <Button
+          variant="contained"
+          color="secondary"
+          fullWidth
+          onClick={handleSearch}
+        >
+          Szukaj
+        </Button>
+      </div>
     </div>
   );
 };
