@@ -10,8 +10,13 @@ import UserContext from "./../../context/user-context";
 const Navbar: React.FC = () => {
   const userContext = React.useContext(UserContext);
 
-  const buttons = userContext.isUserLogged ? (
-    <Button>Profil</Button>
+  const buttons = !userContext.isUserLogged ? (
+    <>
+      <Button>Profil</Button>
+      <NavLink to="/admin" activeClassName="linkActive">
+        <Button>Admin</Button>
+      </NavLink>
+    </>
   ) : (
     <>
       <NavLink to="/login" activeClassName="linkActive">
