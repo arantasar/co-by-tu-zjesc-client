@@ -5,28 +5,32 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
-import UserContext from "./../../context/user-context";
+import UserContext from "../../../context/user-context";
 
 const Navbar: React.FC = () => {
   const userContext = React.useContext(UserContext);
 
-  const buttons = !userContext.isUserLogged ? (
+  let buttons = (
     <>
-      <Button>Profil</Button>
-      <NavLink to="/admin" activeClassName="linkActive">
-        <Button>Admin</Button>
-      </NavLink>
-    </>
-  ) : (
-    <>
-      <NavLink to="/login" activeClassName="linkActive">
-        <Button>Zaloguj</Button>
-      </NavLink>
-      <NavLink to="/register" activeClassName="linkActive">
-        <Button>Rejestracja</Button>
-      </NavLink>
+      <Button component={NavLink} to="/login" activeClassName="linkActive">
+        Zaloguj
+      </Button>
+      <Button component={NavLink} to="/register" activeClassName="linkActive">
+        Rejestracja
+      </Button>
     </>
   );
+
+  if (userContext.isUserLogged) {
+    buttons = (
+      <>
+        <Button>Profil</Button>
+        <Button component={NavLink} to="/admin" activeClassName="linkActive">
+          Admin
+        </Button>
+      </>
+    );
+  }
 
   return (
     <AppBar position="fixed">

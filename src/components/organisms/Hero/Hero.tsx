@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import background from "../../assets/home.jpg";
+import background from "../../../assets/home.jpg";
+import Ribbon from "../../molecules/Ribbon/Ribbon";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -13,6 +14,10 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Hero: React.FC = (props) => <Wrapper>{props.children}</Wrapper>;
+const Hero = () => (
+  <Wrapper>
+    <Ribbon />
+  </Wrapper>
+);
 
 export default Hero;

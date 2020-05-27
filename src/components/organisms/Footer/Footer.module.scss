@@ -1,4 +1,4 @@
-.wrapper {
+.Footer {
   background-color: #707070;
   padding: 50px 0;
   color: white;
@@ -7,7 +7,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr;
   column-gap: 50px;
 }
 
@@ -21,7 +21,3 @@
   line-height: 1.6;
 }
 
-.copy {
-  margin-top: 20px;
-  font-size: 0.8em;
-}
