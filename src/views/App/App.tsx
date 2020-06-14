@@ -18,7 +18,12 @@ const App = () => {
     setIsUserLogged(true);
   };
 
-  const value = { isUserLogged, user, login };
+  const logout = () => {
+    setUser("");
+    setIsUserLogged(false);
+  };
+
+  const value = { isUserLogged, user, login, logout };
 
   return (
     <ThemeProvider theme={theme}>

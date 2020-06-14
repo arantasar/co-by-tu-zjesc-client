@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import { string, object } from "yup";
-import RegisterForm from "./Login";
+import LoginForm from "./Login";
 import axios from "axios";
+import UserContext from "../../../context/user-context";
 
 const validationSchema = object({
   email: string("Adres email")
@@ -12,6 +14,9 @@ const validationSchema = object({
 });
 
 const Login = () => {
+  const userContext = useContext(UserContext);
+  const [pass, setPass] = useState(false);
+
   const initialValues = {
     email: "",
     password: "",
@@ -21,13 +26,10 @@ const Login = () => {
       email,
       password,
     };
-    axios
-      .post("http://weirdy.arantasar.hostingasp.pl/home/create", {
-        ...user,
-      })
-      .then(() => {
-        // console.log(res);
-      });
+    if (email === "janusz.guzowski@gmail.com" && password === "1234") {
+      userContext.login();
+      setPass(true);
+    }
   };
 
   return (
@@ -36,7 +38,14 @@ const Login = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
     >
-      {(props) => <RegisterForm {...props} />}
+      {(props) => {
+        return (
+          <>
+            <LoginForm {...props} />
+            {pass ? <Redirect push to="/" /> : null}
+          </>
+        );
+      }}
     </Formik>
   );
 };

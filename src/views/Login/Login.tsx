@@ -1,7 +1,6 @@
-import * as React from "react";
+import React from "react";
 import WithModal from "../../hoc/WithModal/WithModal";
 import axios from "axios";
-
 import LoginForm from "../../components/forms/Login/LoginWrapper";
 import styles from "./Login.module.scss";
 import photoWebp from "../../assets/vege-food.webp";

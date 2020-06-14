@@ -6,9 +6,14 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../../context/user-context";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<RouteComponentProps> = (props) => {
   const userContext = React.useContext(UserContext);
+  const handleLogout = () => {
+    userContext.logout();
+    props.history.push("/");
+  };
 
   let buttons = (
     <>
@@ -28,6 +33,7 @@ const Navbar: React.FC = () => {
         <Button component={NavLink} to="/admin" activeClassName="linkActive">
           Admin
         </Button>
+        <Button onClick={handleLogout}>Wyloguj</Button>
       </>
     );
   }
@@ -46,4 +52,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
