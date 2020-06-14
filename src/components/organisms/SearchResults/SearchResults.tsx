@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./SearchResults.module.scss";
 import { Container } from "@material-ui/core";
 
-import picture from "./../../assets/spaghetti-big.webp";
+import picture from "../../../assets/spaghetti-big.webp";
 import { Link } from "react-router-dom";
 
 const searchResults = (props: any) => {
