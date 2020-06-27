@@ -20,13 +20,9 @@ const withModal = (WrappedComponent, clickHandler, axios) => (props) => {
       return req;
     });
     const res = axios.interceptors.response.use(
-      (res) => {
-        console.log(res.data);
-        setError(res.data);
-        return res;
-      },
+      (res) => res,
       (error) => {
-        setError(error.response.data);
+        setError(error.response.data.title);
         return Promise.reject(error);
       }
     );
@@ -42,10 +38,7 @@ const withModal = (WrappedComponent, clickHandler, axios) => (props) => {
       <Dialog open={!!error} onClose={closeHandler}>
         <DialogTitle>Server Error</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </DialogContentText>
+          <DialogContentText>{error}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeHandler} color="secondary">

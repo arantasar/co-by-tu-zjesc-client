@@ -12,7 +12,7 @@ const LoginView = () => (
       <source srcSet={photoWebp} type="image/webp" />
       <img src={photo} className={styles.image} alt="CoByTuZjesc" />
     </picture>
-    <LoginForm />
+    <LoginForm axios={axios} />
   </div>
 );
 

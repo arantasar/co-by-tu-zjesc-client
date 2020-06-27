@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
-import UserContext from "../../../context/user-context";
+import { UserContext } from "../../../context/user-context";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import "./Navbar.scss";
 

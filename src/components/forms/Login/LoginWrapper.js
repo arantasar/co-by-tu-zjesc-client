@@ -3,8 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
 import { string, object } from "yup";
 import LoginForm from "./Login";
-import axios from "axios";
-import UserContext from "../../../context/user-context";
+import { UserContext } from "../../../context/user-context";
 
 const validationSchema = object({
   email: string("Adres email")
@@ -13,7 +12,7 @@ const validationSchema = object({
   password: string("").required("Pole jest wymagane"),
 });
 
-const Login = () => {
+const Login = (props) => {
   const userContext = useContext(UserContext);
   const [pass, setPass] = useState(false);
 
@@ -22,14 +21,12 @@ const Login = () => {
     password: "",
   };
   const onSubmit = ({ email, password }) => {
-    const user = {
-      email,
-      password,
-    };
-    if (email === "janusz.guzowski@gmail.com" && password === "1234") {
-      userContext.login();
-      setPass(true);
-    }
+    props.axios
+      .post("http://localhost:5000/api/users/login", { email, password })
+      .then((res) => {
+        userContext.login(res.data.user, res.data.token);
+        setPass(true);
+      });
   };
 
   return (
