@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../../context/user-context";
 import { withRouter, RouteComponentProps } from "react-router-dom";
+import "./Navbar.scss";
 
 const Navbar: React.FC<RouteComponentProps> = (props) => {
   const userContext = React.useContext(UserContext);

@@ -23,7 +23,7 @@ const App = () => {
     setIsUserLogged(false);
   };
 
-  const value = { isUserLogged, user, login, logout };
+  const value = { isUserLogged, user, login, logout, token: "" };
 
   return (
     <ThemeProvider theme={theme}>
