@@ -5,6 +5,7 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import styles from "./Admin.module.scss";
 import IngredientsAdmin from "../../components/Admin/Ingredients/IngredientsAdmin";
 import UnitsAdmin from "../../components/Admin/Units/UnitsAdmin";
+import CategoriesAdmin from "../../components/Admin/Categories/CategoriesAdmin";
 
 const Admin = () => {
   const items = [
@@ -33,7 +34,7 @@ const Admin = () => {
       case "ingredients":
         return <IngredientsAdmin />;
       case "categories":
-        return "";
+        return <CategoriesAdmin />;
       default:
         return null;
     }

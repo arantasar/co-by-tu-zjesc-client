@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./UnitsAdmin.module.scss";
-import { Paper, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import UnitsTable from "./UnitsTable/UnitsTable";
+import NewUnit from "./NewUnit/NewUnit";
 
 const UnitsAdmin = () => {
   const [items, setItems] = useState([]);
@@ -17,6 +15,7 @@ const UnitsAdmin = () => {
       .catch((err) => {
         alert(err.response.data.message);
       });
+
   const addUnit = () => {
     axios
       .post("http://localhost:5000/api/units", {
@@ -30,6 +29,7 @@ const UnitsAdmin = () => {
         setUnitName("");
       });
   };
+
   const getUnits = () =>
     axios.get("http://localhost:5000/api/units").then((res) => {
       setItems(res.data);
@@ -43,29 +43,11 @@ const UnitsAdmin = () => {
     <>
       <div className={styles.Wrapper}>
         <UnitsTable items={items} deleteUnit={deleteUnit} />
-        <Paper elevation={3} className={styles.AddForm}>
-          <Typography>Dodaj jednostkę</Typography>
-          <form noValidate autoComplete="off">
-            <TextField
-              value={unitName}
-              onChange={(e) => setUnitName(e.target.value)}
-              className={styles.FormItem}
-              label="Nazwa"
-              color="secondary"
-              fullWidth
-            />
-            <div className={styles.Button}>
-              <Button
-                onClick={addUnit}
-                fullWidth
-                variant="contained"
-                color="secondary"
-              >
-                Dodaj
-              </Button>
-            </div>
-          </form>
-        </Paper>
+        <NewUnit
+          unitName={unitName}
+          setUnitName={setUnitName}
+          addUnit={addUnit}
+        />
       </div>
     </>
   );
