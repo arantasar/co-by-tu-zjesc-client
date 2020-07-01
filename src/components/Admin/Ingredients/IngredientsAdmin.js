@@ -9,45 +9,84 @@ import styles from "./IngredientsAdmin.module.scss";
 import { Paper, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const IngredientsAdmin = () => {
   const [items, setItems] = useState([]);
-  const [enums, setEnums] = useState([]);
-  const [unit, setUnit] = useState("BRAK");
+  const [units, setUnits] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
+  const [selectedUnits, setSelectednits] = useState([]);
   const [fileName, setFileName] = useState("");
 
+  const deleteIngredient = (id) =>
+    axios
+      .delete("http://localhost:5000/api/ingredients/" + id)
+      .then(() => axios.get("http://localhost:5000/api/ingredients"))
+      .then((res) => {
+        setItems(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+
   const handleChange = (event) => {
-    setUnit(event.target.value);
+    const id = event.target.name;
+    if (selectedUnits.includes(id)) {
+      setSelectednits((prev) => prev.filter((unit) => unit !== id));
+    } else {
+      setSelectednits((prev) => [...prev, id]);
+    }
+  };
+
+  const submitForm = () => {
+    const ans = [];
+    selectedUnits.forEach((id) => {
+      const item = units.find((unit) => unit.id === id);
+      ans.push(item);
+    });
+    axios
+      .post("http://localhost:5000/api/ingredients", {
+        name: newIngredient,
+        units: ans,
+      })
+      .then(() => axios.get("http://localhost:5000/api/ingredients"))
+      .then((res) => {
+        setItems(res.data);
+        setNewIngredient("");
+        setSelectednits([]);
+      });
   };
 
   const fileUpload = () => {
     document.getElementById("file-upload").click();
   };
 
+  const handleNameChange = (e) => {
+    setNewIngredient(e.target.value);
+  };
+
   const fileUploadChange = (event) => {
-    setFileName(event.target.files[0].name);
+    if (event.target.files[0]) {
+      setFileName(event.target.files[0].name);
+    } else {
+      setFileName("");
+    }
   };
 
   useEffect(() => {
     Promise.all([
       axios.get("http://localhost:5000/api/ingredients"),
-      axios.get("http://localhost:5000/api/ingredients/enums"),
-    ]).then((res) => {
-      const [ingredients, enums] = res;
+      axios.get("http://localhost:5000/api/units"),
+    ]).then((values) => {
+      const [ingredients, units] = values;
+      setUnits(units.data);
       setItems(ingredients.data);
-      setEnums(enums.data);
     });
   }, []);
-
-  const menuItems = enums.map((item) => (
-    <MenuItem key={item} value={item}>
-      {item}
-    </MenuItem>
-  ));
 
   return (
     <>
@@ -57,8 +96,9 @@ const IngredientsAdmin = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Nazwa</TableCell>
-                <TableCell align="right">Jednostka</TableCell>
+                <TableCell align="right">Jednostki</TableCell>
                 <TableCell align="right">Zdjęcie</TableCell>
+                <TableCell align="right">Usuń</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -67,8 +107,18 @@ const IngredientsAdmin = () => {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <TableCell align="right">{row.unit}</TableCell>
+                  <TableCell align="right">
+                    {row.units.map((i) => i.name).join(", ")}
+                  </TableCell>
                   <TableCell align="right">{row.photo}</TableCell>
+                  <TableCell align="right">
+                    <DeleteIcon
+                      cursor="pointer"
+                      onClick={() => {
+                        deleteIngredient(row.id);
+                      }}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -79,15 +129,28 @@ const IngredientsAdmin = () => {
           <form noValidate autoComplete="off">
             <TextField
               className={styles.FormItem}
+              value={newIngredient}
+              onChange={handleNameChange}
               label="Nazwa"
               color="secondary"
               fullWidth
             />
-            <FormControl fullWidth>
-              <InputLabel>Jednostka</InputLabel>
-              <Select value={unit} onChange={handleChange} label="Jednostka">
-                {menuItems}
-              </Select>
+            <FormControl component="fieldset">
+              <FormGroup>
+                {units.map((unit) => (
+                  <FormControlLabel
+                    key={unit.id}
+                    control={
+                      <Checkbox
+                        checked={selectedUnits.includes(unit.id)}
+                        onChange={handleChange}
+                        name={unit.id}
+                      />
+                    }
+                    label={unit.name}
+                  />
+                ))}
+              </FormGroup>
             </FormControl>
             <div className={styles.Button}>
               <input
@@ -102,7 +165,12 @@ const IngredientsAdmin = () => {
               </Button>
             </div>
             <div className={styles.Button}>
-              <Button fullWidth variant="contained" color="secondary">
+              <Button
+                fullWidth
+                variant="contained"
+                color="secondary"
+                onClick={submitForm}
+              >
                 Dodaj
               </Button>
             </div>

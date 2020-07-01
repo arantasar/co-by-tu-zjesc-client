@@ -10,6 +10,8 @@ const Admin = () => {
   const items = [
     { name: "units", display: "Jednostki" },
     { name: "ingredients", display: "Składniki" },
+    { name: "categories", display: "Kategorie" },
+    { name: "diets", display: "Diety" },
     { name: "recipes", display: "Przepisy" },
     { name: "users", display: "Użytownicy" },
     { name: "settings", display: "Ustawienia" },
@@ -30,6 +32,8 @@ const Admin = () => {
         return <UnitsAdmin />;
       case "ingredients":
         return <IngredientsAdmin />;
+      case "categories":
+        return "";
       default:
         return null;
     }
