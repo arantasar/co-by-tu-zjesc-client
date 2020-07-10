@@ -6,6 +6,7 @@ import styles from "./Admin.module.scss";
 import IngredientsAdmin from "../../components/Admin/Ingredients/IngredientsAdmin";
 import UnitsAdmin from "../../components/Admin/Units/UnitsAdmin";
 import CategoriesAdmin from "../../components/Admin/Categories/CategoriesAdmin";
+import DietsAdmin from "../../components/Admin/Diets/DietsAdmin";
 
 const Admin = () => {
   const items = [
@@ -35,6 +36,8 @@ const Admin = () => {
         return <IngredientsAdmin />;
       case "categories":
         return <CategoriesAdmin />;
+      case "diets":
+        return <DietsAdmin />;
       default:
         return null;
     }

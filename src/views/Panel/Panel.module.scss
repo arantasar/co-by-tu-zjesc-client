@@ -1,0 +1,48 @@
+.Panel {
+  margin-top: 64px;
+}
+
+.Dashboard {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  &Item {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #707070;
+    font-size: 26px;
+    font-weight: 700;
+
+    &Active:hover {
+      color: black;
+      cursor: pointer;
+
+      &:after {
+        opacity: 0.4;
+      }
+    }
+
+    &:after {
+      position: absolute;
+      content: "";
+      background-image: url("./../../assets/back2.jpg");
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.2;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}

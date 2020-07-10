@@ -30,7 +30,9 @@ const Navbar: React.FC<RouteComponentProps> = (props) => {
   if (userContext.isUserLogged) {
     buttons = (
       <>
-        <Button>Profil</Button>
+        <Button component={NavLink} to="/panel" activeClassName="linkActive">
+          Profil
+        </Button>
         <Button component={NavLink} to="/admin" activeClassName="linkActive">
           Admin
         </Button>
