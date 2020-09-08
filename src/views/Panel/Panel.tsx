@@ -3,8 +3,8 @@ import withModal from "../../hoc/WithModal/WithModal";
 import axios from "axios";
 import styles from "./Panel.module.scss";
 import { Container, Grid } from "@material-ui/core";
-import avatar from "./../../assets/avatar.png";
 import UserInfo from "../../components/organisms/UserInfo/UserInfo";
+import { Link } from "react-router-dom";
 
 const Panel = () => {
   return (
@@ -16,17 +16,19 @@ const Panel = () => {
           </Grid>
           <Grid item xs={12} sm={9}>
             <div className={styles.Dashboard}>
-              <div
+              <Link
+                to="/panel/recipes"
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
                 style={{ gridColumn: "1 / 3" }}
               >
                 Moje przepisy
-              </div>
-              <div
+              </Link>
+              <Link
+                to="/panel/add"
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
               >
                 Dodaj przepis
-              </div>
+              </Link>
               <div className={styles.DashboardItem}></div>
               <div
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}

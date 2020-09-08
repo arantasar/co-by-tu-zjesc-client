@@ -5,6 +5,7 @@ import LoginView from "../views/Login/Login";
 import RecipeView from "../views/Recipe/Recipe";
 import AdminView from "../views/Admin/Admin";
 import PanelView from "../views/Panel/Panel";
+import AddView from "../views/Panel/Add/Add";
 import { Switch, Route } from "react-router-dom";
 
 const RouterSwitch = () => {
@@ -13,6 +14,7 @@ const RouterSwitch = () => {
     { path: "/register", component: RegisterView },
     { path: "/admin", component: AdminView },
     { path: "/login", component: LoginView },
+    { path: "/panel/add", component: AddView },
     { path: "/panel", component: PanelView },
     {
       path: "/",
