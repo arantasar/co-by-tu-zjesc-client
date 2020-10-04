@@ -10,6 +10,7 @@ import { useHistory } from "react-router";
 
 const Login = (props) => {
   const userContext = useContext(UserContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [header, setHeader] = useState("");
   const [text, setText] = useState("");
@@ -20,6 +21,7 @@ const Login = (props) => {
   };
 
   const onSubmit = ({ email, password }, { resetForm }) => {
+    setIsSubmitting(true);
     props.axios
       .post(`${API}/users/login`, { email, password })
       .then((res) => {
@@ -33,6 +35,7 @@ const Login = (props) => {
       })
       .finally(() => {
         resetForm();
+        setIsSubmitting(false);
       });
   };
 
@@ -42,6 +45,7 @@ const Login = (props) => {
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
+        isSubmitting={isSubmitting}
       >
         {(props) => {
           return <LoginForm {...props} />;

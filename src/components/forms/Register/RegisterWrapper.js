@@ -14,6 +14,7 @@ const Register = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
   const history = useHistory();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClose = () => {
     setShowModal(false);
@@ -22,7 +23,8 @@ const Register = () => {
     }
   };
 
-  const onSubmit = ({ name, email, password }, { resetForm, isSubmitting }) => {
+  const onSubmit = ({ name, email, password }, { resetForm }) => {
+    setIsSubmitting(true);
     setError(false);
     axios
       .post(`${API}/users`, {
@@ -44,6 +46,7 @@ const Register = () => {
         setShowModal(true);
       })
       .finally(() => {
+        setIsSubmitting(false);
         resetForm();
       });
   };
@@ -54,6 +57,7 @@ const Register = () => {
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
+        isSubmitting={isSubmitting}
       >
         {(props) => <RegisterForm {...props} />}
       </Formik>
