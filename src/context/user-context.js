@@ -2,7 +2,9 @@ import React from "react";
 
 export const UserContext = React.createContext({
   isUserLogged: false,
-  user: {},
+  user: {
+    role: "",
+  },
   token: "",
   login: () => {},
   logout: () => {},

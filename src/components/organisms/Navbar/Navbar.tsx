@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import { UserContext } from "../../../context/user-context";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import "./Navbar.scss";
+import { userRoles } from "../../../config/config";
 
 const Navbar: React.FC<RouteComponentProps> = (props) => {
   const userContext = React.useContext(UserContext);
@@ -33,9 +34,11 @@ const Navbar: React.FC<RouteComponentProps> = (props) => {
         <Button component={NavLink} to="/panel" activeClassName="linkActive">
           Profil
         </Button>
-        <Button component={NavLink} to="/admin" activeClassName="linkActive">
-          Admin
-        </Button>
+        {userContext.user.role === userRoles.ADMIN ? (
+          <Button component={NavLink} to="/admin" activeClassName="linkActive">
+            Admin
+          </Button>
+        ) : null}
         <Button onClick={handleLogout}>Wyloguj</Button>
       </>
     );
