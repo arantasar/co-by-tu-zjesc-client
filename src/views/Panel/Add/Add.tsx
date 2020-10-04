@@ -5,10 +5,15 @@ import styles from "./Add.module.scss";
 import axios from "./../../../axios/";
 import IIngredient from "../../../models/IIngredient";
 import SelectRecipeIngredient from "../../../components/molecules/SelectRecipeIngredient/SelectRecipeIngredient";
+import IExtendedIngredient from "../../../models/IExtendedIngredient";
 
 const Add = () => {
   const [name, setName] = useState<string>("");
+
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<
+    IExtendedIngredient[]
+  >([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -19,6 +24,18 @@ const Add = () => {
       setIngredients(res.data);
     });
   }, []);
+
+  const clickHandler = (ingredient: IIngredient) => {
+    setSelectedIngredients((prev) => [...prev, { ...ingredient, quantity: 0 }]);
+  };
+  const clickHandlerReverse = (ingredient: IIngredient) => {
+    setSelectedIngredients((prev) =>
+      prev.filter((item) => item.id !== ingredient.id)
+    );
+  };
+
+  const isNotInSelected = (ingredient: IIngredient) =>
+    !selectedIngredients.some((selected) => selected.id === ingredient.id);
 
   return (
     <div className={styles.Add}>
@@ -39,11 +56,27 @@ const Add = () => {
               <p>Składniki</p>
               <div className={styles.Select}>
                 <div className={styles.All}>
-                  {ingredients.map((ingredient) => {
-                    return <SelectRecipeIngredient ingredient={ingredient} />;
+                  {ingredients.filter(isNotInSelected).map((ingredient) => {
+                    return (
+                      <SelectRecipeIngredient
+                        key={ingredient.id}
+                        ingredient={ingredient}
+                        clickHandler={clickHandler}
+                      />
+                    );
                   })}
                 </div>
-                <div className={styles.Selected}></div>
+                <div className={styles.Selected}>
+                  {selectedIngredients.map((ingredient) => {
+                    return (
+                      <SelectRecipeIngredient
+                        key={ingredient.id}
+                        ingredient={ingredient}
+                        clickHandler={clickHandlerReverse}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             </div>
             <div>Opis wykonania</div>
