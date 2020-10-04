@@ -1,13 +1,10 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import userContext from "./../../../context/user-context";
 import styles from "./Login.module.css";
 import { Box } from "@material-ui/core";
 
 const RegisterForm = (props) => {
-  // const context = React.useContext(userContext);
-
   const {
     errors,
     touched,
