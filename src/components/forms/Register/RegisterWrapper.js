@@ -25,11 +25,14 @@ const Register = () => {
   const [showModal, setShowModal] = useState(false);
   const [header, setHeader] = useState("");
   const [text, setText] = useState("");
+  const [error, setError] = useState(false);
   const history = useHistory();
 
   const handleClose = () => {
     setShowModal(false);
-    history.push("/login");
+    if (!error) {
+      history.push("/login");
+    }
   };
 
   const initialValues = {
@@ -39,7 +42,8 @@ const Register = () => {
     passwordConfirm: "",
   };
 
-  const onSubmit = ({ name, email, password }) => {
+  const onSubmit = ({ name, email, password }, { resetForm }) => {
+    setError(false);
     axios
       .post(`${API}/users`, {
         name,
@@ -52,12 +56,15 @@ const Register = () => {
         setShowModal(true);
         // przycisk zablokowany przy wysyłaniu
         // kółeczko - czekajka
-        // wyczyścic formularz
       })
-      .catch(() => {
+      .catch((err) => {
         setHeader("Błąd");
-        setText("Nie udało się utworzyć konta, spróbuj ponownie później!");
+        setError(true);
+        setText(err.response.data.message);
         setShowModal(true);
+      })
+      .finally(() => {
+        resetForm();
       });
   };
 
