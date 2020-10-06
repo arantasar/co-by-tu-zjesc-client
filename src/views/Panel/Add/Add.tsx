@@ -7,10 +7,11 @@ import IIngredient from "../../../models/IIngredient";
 import SelectRecipeIngredient from "../../../components/molecules/SelectRecipeIngredient/SelectRecipeIngredient";
 import IExtendedIngredient from "../../../models/IExtendedIngredient";
 import Selected from "./Selected/Selected";
+import Description from "./Description/Description";
 
 const Add = () => {
   const [name, setName] = useState<string>("");
-
+  const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<
     IExtendedIngredient[]
@@ -35,6 +36,10 @@ const Add = () => {
 
   const isNotInSelected = (ingredient: IIngredient) =>
     !selectedIngredients.some((selected) => selected.id === ingredient.id);
+
+  const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value);
+  };
 
   return (
     <div className={styles.Add}>
@@ -70,7 +75,10 @@ const Add = () => {
               ingredients={selectedIngredients}
               deleteHandler={clickHandlerReverse}
             />
-            <div>Opis wykonania</div>
+            <Description
+              description={description}
+              setDescription={handleDescription}
+            />
             <div>Zdjęcie</div>
             <div>Kategorie i oznaczenia</div>
           </Grid>
