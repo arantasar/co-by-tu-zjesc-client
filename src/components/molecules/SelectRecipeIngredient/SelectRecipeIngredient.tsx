@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./SelectRecipeIngredient.module.scss";
 import IIngredient from "../../../models/IIngredient";
 import IExtendedIngredient from "../../../models/IExtendedIngredient";
@@ -12,12 +12,6 @@ const SelectRecipeIngredient: React.FC<SelectIngredientProps> = ({
   ingredient,
   clickHandler,
 }) => {
-  const [desiredQuantity, setDesiredQuantity] = useState(0);
-
-  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDesiredQuantity(+event.target.value);
-  };
-
   return (
     <>
       <div
@@ -30,14 +24,6 @@ const SelectRecipeIngredient: React.FC<SelectIngredientProps> = ({
           </div>
         </div>
       </div>
-      {"quantity" in ingredient ? (
-        <input
-          type={"number"}
-          value={desiredQuantity}
-          onChange={changeHandler}
-          className={[styles.Ribbon, styles.Quantity].join(" ")}
-        />
-      ) : null}
     </>
   );
 };

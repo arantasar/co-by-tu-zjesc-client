@@ -1,9 +1,10 @@
 .UserPanel {
   background-color: var(--pink);
-  display: grid;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
   color: white;
+  height: 100%;
+  padding: 20px;
 
   .Avatar {
     display: flex;
