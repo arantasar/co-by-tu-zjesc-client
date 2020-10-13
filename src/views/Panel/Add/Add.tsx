@@ -5,10 +5,17 @@ import styles from "./Add.module.scss";
 import axios from "./../../../axios/";
 import IIngredient from "../../../models/IIngredient";
 import SelectRecipeIngredient from "../../../components/molecules/SelectRecipeIngredient/SelectRecipeIngredient";
+import IExtendedIngredient from "../../../models/IExtendedIngredient";
+import Selected from "./Selected/Selected";
+import Description from "./Description/Description";
 
 const Add = () => {
   const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<
+    IExtendedIngredient[]
+  >([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -20,6 +27,20 @@ const Add = () => {
     });
   }, []);
 
+  const clickHandler = (ingredient: IIngredient) => {
+    setSelectedIngredients((prev) => [...prev, { ...ingredient, quantity: 0 }]);
+  };
+  const clickHandlerReverse = (id: string) => {
+    setSelectedIngredients((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const isNotInSelected = (ingredient: IIngredient) =>
+    !selectedIngredients.some((selected) => selected.id === ingredient.id);
+
+  const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value);
+  };
+
   return (
     <div className={styles.Add}>
       <Container>
@@ -29,6 +50,7 @@ const Add = () => {
           </Grid>
           <Grid item xs={12} sm={9}>
             <TextField
+              className={styles.Name}
               id="standard-basic"
               label="Nazwa"
               color="secondary"
@@ -36,17 +58,27 @@ const Add = () => {
               onChange={handleChange}
             />
             <div className={styles.Ingredients}>
-              <p>Składniki</p>
-              <div className={styles.Select}>
-                <div className={styles.All}>
-                  {ingredients.map((ingredient) => {
-                    return <SelectRecipeIngredient ingredient={ingredient} />;
-                  })}
-                </div>
-                <div className={styles.Selected}></div>
+              <p>Wybierz składniki</p>
+              <div className={styles.All}>
+                {ingredients.filter(isNotInSelected).map((ingredient) => {
+                  return (
+                    <SelectRecipeIngredient
+                      key={ingredient.id}
+                      ingredient={ingredient}
+                      clickHandler={clickHandler}
+                    />
+                  );
+                })}
               </div>
             </div>
-            <div>Opis wykonania</div>
+            <Selected
+              ingredients={selectedIngredients}
+              deleteHandler={clickHandlerReverse}
+            />
+            <Description
+              description={description}
+              setDescription={handleDescription}
+            />
             <div>Zdjęcie</div>
             <div>Kategorie i oznaczenia</div>
           </Grid>

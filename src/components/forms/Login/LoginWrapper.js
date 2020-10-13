@@ -1,49 +1,64 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 import { Formik } from "formik";
-import { string, object } from "yup";
 import LoginForm from "./Login";
 import { UserContext } from "../../../context/user-context";
-
-const validationSchema = object({
-  email: string("Adres email")
-    .email("Niepoprawny format")
-    .required("Pole jest wymagane"),
-  password: string("").required("Pole jest wymagane"),
-});
+import { validationSchema } from "./validationSchema";
+import { initialValues } from "./initialValues";
+import UniversalModal from "../../organisms/UniversalModal";
+import { API } from "../../../config/config";
+import { useHistory } from "react-router";
 
 const Login = (props) => {
   const userContext = useContext(UserContext);
-  const [pass, setPass] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [header, setHeader] = useState("");
+  const [text, setText] = useState("");
+  const history = useHistory();
 
-  const initialValues = {
-    email: "",
-    password: "",
+  const handleClose = () => {
+    setModalOpen(false);
   };
-  const onSubmit = ({ email, password }) => {
+
+  const onSubmit = ({ email, password }, { resetForm }) => {
+    setIsSubmitting(true);
     props.axios
-      .post("http://localhost:5000/api/users/login", { email, password })
+      .post(`${API}/users/login`, { email, password })
       .then((res) => {
         userContext.login(res.data.user, res.data.token);
-        setPass(true);
+        history.push("/");
+      })
+      .catch((err) => {
+        setHeader("Błąd");
+        setText(err.response.data.message);
+        setModalOpen(true);
+      })
+      .finally(() => {
+        resetForm();
+        setIsSubmitting(false);
       });
   };
 
   return (
-    <Formik
-      onSubmit={onSubmit}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
-      {(props) => {
-        return (
-          <>
-            <LoginForm {...props} />
-            {pass ? <Redirect push to="/" /> : null}
-          </>
-        );
-      }}
-    </Formik>
+    <>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        isSubmitting={isSubmitting}
+      >
+        {(props) => {
+          return <LoginForm {...props} />;
+        }}
+      </Formik>
+      <UniversalModal
+        open={modalOpen}
+        handleClose={handleClose}
+        header={header}
+        buttonText={"OK"}
+        text={text}
+      />
+    </>
   );
 };
 

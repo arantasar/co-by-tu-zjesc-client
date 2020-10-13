@@ -2,26 +2,21 @@
   margin-top: 64px;
 }
 
+.Name {
+  width: 100%;
+}
+
 .Ingredients {
-  .Select {
-    display: flex;
-    .All,
-    .Selected {
-      background-color: white;
-      width: 100%;
-      height: 260px;
-    }
-
-    .All {
-      overflow-y: auto;
-      padding: 15px;
-      margin-right: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .Selected {
-    }
+  .All {
+    border-radius: 15px;
+    border: 2px solid #ee24c4;
+    background-color: white;
+    width: 100%;
+    height: 260px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 15px;
+    column-gap: 10px;
   }
 }

@@ -1,28 +1,30 @@
 import React from "react";
 import styles from "./SelectRecipeIngredient.module.scss";
 import IIngredient from "../../../models/IIngredient";
+import IExtendedIngredient from "../../../models/IExtendedIngredient";
 
 interface SelectIngredientProps {
-  ingredient: IIngredient;
+  ingredient: IIngredient | IExtendedIngredient;
+  clickHandler: (ingredient: IIngredient) => void;
 }
 
 const SelectRecipeIngredient: React.FC<SelectIngredientProps> = ({
   ingredient,
+  clickHandler,
 }) => {
-  const onDragStart = () => {
-    console.log("started");
-  };
-
   return (
-    <div
-      className={styles.SelectRecipeIngredient}
-      draggable
-      onDragStart={onDragStart}
-    >
-      <div className={styles.Photo}>
-        <div className={styles.Ribbon}>{ingredient.name}</div>
+    <>
+      <div
+        className={styles.SelectRecipeIngredient}
+        onClick={() => clickHandler(ingredient)}
+      >
+        <div className={styles.Photo}>
+          <div className={[styles.Ribbon, styles.Name].join(" ")}>
+            {ingredient.name}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,14 +1,14 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import userContext from "./../../../context/user-context";
 import styles from "./Login.module.css";
 import { Box } from "@material-ui/core";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const RegisterForm = (props) => {
-  // const context = React.useContext(userContext);
-
   const {
+    isSubmitting,
     errors,
     touched,
     handleSubmit,
@@ -55,12 +55,21 @@ const RegisterForm = (props) => {
       />
       <Box mt={3}>
         <Button
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting}
           variant="contained"
           color="secondary"
           type="submit"
         >
-          Zaloguj
+          {isSubmitting ? (
+            <FontAwesomeIcon
+              spin
+              size={"lg"}
+              color={"white"}
+              icon={faSpinner}
+            />
+          ) : (
+            "Zaloguj"
+          )}
         </Button>
       </Box>
     </form>

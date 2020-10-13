@@ -4,9 +4,12 @@ import Button from "@material-ui/core/Button";
 
 import styles from "./Register.module.css";
 import { Box } from "@material-ui/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const RegisterForm = (props) => {
   const {
+    isSubmitting,
     errors,
     touched,
     handleSubmit,
@@ -78,12 +81,22 @@ const RegisterForm = (props) => {
       />
       <Box mt={3}>
         <Button
-          disabled={!isValid}
+          disabled={!isValid || isSubmitting}
           variant="contained"
           color="secondary"
           type="submit"
         >
-          Załóż konto
+          {" "}
+          {isSubmitting ? (
+            <FontAwesomeIcon
+              spin
+              size={"lg"}
+              color={"white"}
+              icon={faSpinner}
+            />
+          ) : (
+            "Załóż konto"
+          )}
         </Button>
       </Box>
     </form>
