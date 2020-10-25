@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Grid, TextField } from "@material-ui/core";
+import React, { useState, useEffect, useContext } from "react";
+import { Container, Grid, TextField, Button } from "@material-ui/core";
 import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
 import styles from "./Add.module.scss";
 import axios from "./../../../axios/";
@@ -8,14 +8,40 @@ import SelectRecipeIngredient from "../../../components/molecules/SelectRecipeIn
 import IExtendedIngredient from "../../../models/IExtendedIngredient";
 import Selected from "./Selected/Selected";
 import Description from "./Description/Description";
+import { UserContext } from "../../../context/user-context";
+import Categories from "./Categories/Categories";
+import ICategory from "../../../models/ICategory";
+import IDiet from "../../../models/IDiet";
+import useAppContext from "../../../hooks/useAppContext";
 
 const Add = () => {
+  const ctx = useContext(UserContext);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<
     IExtendedIngredient[]
   >([]);
+  const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
+  const [selectedDiets, setSelectedDiets] = useState<IDiet[]>([]);
+
+  const { categories } = useAppContext();
+
+  const selectCategoryHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const id = event.target.id;
+    if (selectedCategories.map((c) => c.id).includes(id)) {
+      setSelectedCategories((prev) =>
+        prev.filter((category) => category.id !== id)
+      );
+    } else {
+      setSelectedCategories((prev) => {
+        const newCategory = categories.find((category) => category.id === id);
+        return !!newCategory ? [...prev, newCategory] : [...prev];
+      });
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -30,6 +56,7 @@ const Add = () => {
   const clickHandler = (ingredient: IIngredient) => {
     setSelectedIngredients((prev) => [...prev, { ...ingredient, quantity: 0 }]);
   };
+
   const clickHandlerReverse = (id: string) => {
     setSelectedIngredients((prev) => prev.filter((item) => item.id !== id));
   };
@@ -39,6 +66,60 @@ const Add = () => {
 
   const handleDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
+  };
+
+  const quantityHandler = (id: string, quantity: number) => {
+    const newSelectedIngredients = selectedIngredients.map((ingredient) =>
+      ingredient.id === id
+        ? {
+            ...ingredient,
+            quantity,
+          }
+        : ingredient
+    );
+    setSelectedIngredients(newSelectedIngredients);
+  };
+
+  const unitHandler = (id: string, unitId: string) => {
+    const ingredient = selectedIngredients.find((i) => i.id === id);
+    if (ingredient) {
+      const unit = ingredient.units.find((u) => u.id === unitId);
+      const newSelectedIngredients = selectedIngredients.map((ingredient) =>
+        ingredient.id === id
+          ? {
+              ...ingredient,
+              unit,
+            }
+          : ingredient
+      );
+      setSelectedIngredients(newSelectedIngredients);
+    }
+  };
+
+  const addRecipe = () => {
+    const recipeLines = selectedIngredients.map(
+      ({ unit, quantity, ...rest }) => ({
+        unit,
+        amount: quantity,
+        ingredient: rest,
+      })
+    );
+    const data = {
+      name,
+      description,
+      recipeLines,
+      categories: selectedCategories,
+    };
+
+    axios
+      .post("/recipes", data, {
+        headers: {
+          Authorization: `Bearer ${ctx.token}`,
+        },
+      })
+      .then((res: any) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -74,13 +155,24 @@ const Add = () => {
             <Selected
               ingredients={selectedIngredients}
               deleteHandler={clickHandlerReverse}
+              quantityHandler={quantityHandler}
+              unitHandler={unitHandler}
             />
             <Description
               description={description}
               setDescription={handleDescription}
             />
             <div>Zdjęcie</div>
-            <div>Kategorie i oznaczenia</div>
+            <div>
+              <Categories
+                categories={categories}
+                selectedCategories={selectedCategories}
+                selectCategoryHandler={selectCategoryHandler}
+              />
+            </div>
+            <Button onClick={addRecipe} color={"secondary"}>
+              Dodaj przepis
+            </Button>
           </Grid>
         </Grid>
       </Container>

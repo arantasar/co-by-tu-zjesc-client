@@ -12,9 +12,16 @@ import SelectedRow from "../SelectedRow";
 interface IProps {
   ingredients: IExtendedIngredient[];
   deleteHandler: (id: string) => void;
+  quantityHandler: (id: string, quantity: number) => void;
+  unitHandler: (id: string, unitId: string) => void;
 }
 
-const Selected: FC<IProps> = ({ ingredients, deleteHandler }) => {
+const Selected: FC<IProps> = ({
+  ingredients,
+  deleteHandler,
+  unitHandler,
+  quantityHandler,
+}) => {
   return (
     <Table>
       <TableHead>
@@ -30,6 +37,8 @@ const Selected: FC<IProps> = ({ ingredients, deleteHandler }) => {
       <TableBody>
         {ingredients.map((ingredient) => (
           <SelectedRow
+            quantityHandler={quantityHandler}
+            unitHandler={unitHandler}
             key={ingredient.id}
             ingredient={ingredient}
             handleDelete={deleteHandler}

@@ -12,27 +12,19 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IExtendedIngredient from "../../../models/IExtendedIngredient";
 
-interface IProps {
+interface ISelectedRowProps {
   ingredient: IExtendedIngredient;
   handleDelete: (id: string) => void;
+  quantityHandler: (id: string, quantity: number) => void;
+  unitHandler: (id: string, unitId: string) => void;
 }
 
-const SelectedRow: FC<IProps> = ({ ingredient, handleDelete }) => {
-  const [selectedQuantity, setSelectedQuantity] = useState<number>(
-    ingredient.quantity
-  );
-  const [selectedUnit, setSelectedUnit] = useState<string>(
-    ingredient.units[0].id
-  );
-
-  const handleUnit = (event: ChangeEvent<{ value: unknown }>) => {
-    setSelectedUnit(event.target.value as string);
-  };
-
-  const handleQuantity = (event: ChangeEvent<{ value: unknown }>) => {
-    setSelectedQuantity(event.target.value as number);
-  };
-
+const SelectedRow: FC<ISelectedRowProps> = ({
+  ingredient,
+  handleDelete,
+  unitHandler,
+  quantityHandler,
+}) => {
   return (
     <TableRow key={ingredient.name}>
       <TableCell component="th" scope="row">
@@ -42,9 +34,11 @@ const SelectedRow: FC<IProps> = ({ ingredient, handleDelete }) => {
         <FormControl fullWidth>
           <Select
             id="unit"
-            value={selectedUnit}
+            value={(ingredient.unit && ingredient.unit.id) || ""}
             name={"unit"}
-            onChange={handleUnit}
+            onChange={(e) =>
+              unitHandler(ingredient.id, e.target.value as string)
+            }
           >
             {ingredient.units.map((unit) => (
               <MenuItem key={unit.id} value={unit.id}>
@@ -59,8 +53,8 @@ const SelectedRow: FC<IProps> = ({ ingredient, handleDelete }) => {
           fullWidth
           inputProps={{ style: { textAlign: "right" } }}
           type={"number"}
-          value={selectedQuantity}
-          onChange={handleQuantity}
+          value={ingredient.quantity}
+          onChange={(e) => quantityHandler(ingredient.id, +e.target.value)}
         />
       </TableCell>
       <TableCell align="right">

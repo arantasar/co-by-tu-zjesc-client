@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const UserContext = React.createContext({
   isUserLogged: false,
@@ -11,9 +11,9 @@ export const UserContext = React.createContext({
 });
 
 const UserContextComponent = (props) => {
-  const [token, setToken] = React.useState("");
-  const [user, setUser] = React.useState({});
-  const [isUserLogged, setIsUserLogged] = React.useState(false);
+  const [token, setToken] = useState("");
+  const [user, setUser] = useState({});
+  const [isUserLogged, setIsUserLogged] = useState(false);
 
   const login = (user, token) => {
     setUser(user);
