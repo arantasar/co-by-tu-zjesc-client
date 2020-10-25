@@ -14,6 +14,7 @@ import ICategory from "../../../models/ICategory";
 import IDiet from "../../../models/IDiet";
 import useAppContext from "../../../hooks/useAppContext";
 import Diets from "./Diets/Diets";
+import UniversalModal from "../../../components/organisms/UniversalModal";
 
 const Add = () => {
   const ctx = useContext(UserContext);
@@ -26,7 +27,15 @@ const Add = () => {
   const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
   const [selectedDiets, setSelectedDiets] = useState<IDiet[]>([]);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [header, setHeader] = useState("");
+  const [text, setText] = useState("");
+
   const { categories, diets } = useAppContext();
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
 
   const selectCategoryHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -131,8 +140,15 @@ const Add = () => {
           Authorization: `Bearer ${ctx.token}`,
         },
       })
-      .then((res: any) => {
-        console.log(res);
+      .then(() => {
+        setHeader("Przepis dodany");
+        setText("Przepis został dodany!");
+        setModalOpen(true);
+      })
+      .catch((err) => {
+        setHeader("Błąd");
+        setText(err.response.data.message);
+        setModalOpen(true);
       });
   };
 
@@ -190,9 +206,21 @@ const Add = () => {
                 selectDietHandler={selectDietsHandler}
               />
             </div>
-            <Button onClick={addRecipe} color={"secondary"}>
+            <Button
+              onClick={addRecipe}
+              variant="contained"
+              color="secondary"
+              style={{ margin: "20px 0" }}
+            >
               Dodaj przepis
             </Button>
+            <UniversalModal
+              open={modalOpen}
+              handleClose={handleClose}
+              header={header}
+              buttonText={"OK"}
+              text={text}
+            />
           </Grid>
         </Grid>
       </Container>

@@ -8,7 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 interface UniversalModalProps {
   open: boolean;
-  handleClose: () => {};
+  handleClose: () => void;
   header: string;
   buttonText: string;
   text: string;
