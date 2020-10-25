@@ -9,7 +9,7 @@ interface IProps {
 const Description: React.FC<IProps> = ({ description, setDescription }) => {
   return (
     <section>
-      <p>Opis przygotowania</p>
+      <h3>Opis przygotowania</h3>
       <StyledTextArea
         id="description"
         name="description"

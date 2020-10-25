@@ -15,6 +15,7 @@ const Categories: React.FC<IProps> = ({
 }) => {
   return (
     <section>
+      <h3>Wybierz kategorie</h3>
       {categories.map((category) => (
         <FormControlLabel
           key={category.id}

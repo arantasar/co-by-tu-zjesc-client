@@ -130,6 +130,7 @@ const Add = () => {
             <UserInfo />
           </Grid>
           <Grid item xs={12} sm={9}>
+            <h2>Dodaj nowy przepis</h2>
             <TextField
               className={styles.Name}
               id="standard-basic"
@@ -139,7 +140,7 @@ const Add = () => {
               onChange={handleChange}
             />
             <div className={styles.Ingredients}>
-              <p>Wybierz składniki</p>
+              <h3>Wybierz składniki</h3>
               <div className={styles.All}>
                 {ingredients.filter(isNotInSelected).map((ingredient) => {
                   return (
