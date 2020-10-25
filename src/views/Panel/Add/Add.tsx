@@ -13,6 +13,7 @@ import Categories from "./Categories/Categories";
 import ICategory from "../../../models/ICategory";
 import IDiet from "../../../models/IDiet";
 import useAppContext from "../../../hooks/useAppContext";
+import Diets from "./Diets/Diets";
 
 const Add = () => {
   const ctx = useContext(UserContext);
@@ -25,7 +26,7 @@ const Add = () => {
   const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
   const [selectedDiets, setSelectedDiets] = useState<IDiet[]>([]);
 
-  const { categories } = useAppContext();
+  const { categories, diets } = useAppContext();
 
   const selectCategoryHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -39,6 +40,18 @@ const Add = () => {
       setSelectedCategories((prev) => {
         const newCategory = categories.find((category) => category.id === id);
         return !!newCategory ? [...prev, newCategory] : [...prev];
+      });
+    }
+  };
+
+  const selectDietsHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const id = event.target.id;
+    if (selectedDiets.map((c) => c.id).includes(id)) {
+      setSelectedDiets((prev) => prev.filter((category) => category.id !== id));
+    } else {
+      setSelectedDiets((prev) => {
+        const newDiet = diets.find((diet) => diet.id === id);
+        return !!newDiet ? [...prev, newDiet] : [...prev];
       });
     }
   };
@@ -109,6 +122,7 @@ const Add = () => {
       description,
       recipeLines,
       categories: selectedCategories,
+      diets: selectedDiets,
     };
 
     axios
@@ -169,6 +183,11 @@ const Add = () => {
                 categories={categories}
                 selectedCategories={selectedCategories}
                 selectCategoryHandler={selectCategoryHandler}
+              />
+              <Diets
+                diets={diets}
+                selectedDiets={selectedDiets}
+                selectDietHandler={selectDietsHandler}
               />
             </div>
             <Button onClick={addRecipe} color={"secondary"}>
