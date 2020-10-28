@@ -3,7 +3,15 @@ import React, { useState } from "react";
 export const UserContext = React.createContext({
   isUserLogged: false,
   user: {
+    email: "",
+    name: "",
+    lastLogin: "",
     role: "",
+    favourites: [],
+    recipes: [],
+    photoPath: "",
+    daysInService: "",
+    receivedLikes: "",
   },
   token: "",
   login: () => {},

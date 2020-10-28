@@ -1,33 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./UserInfo.module.scss";
 import avatar from "../../../assets/avatar.png";
+import { UserContext } from "../../../context/user-context";
 
 const UserInfo = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className={styles.UserPanel}>
       <div className={styles.Avatar}>
         <img src={avatar} alt="Avatar" />
       </div>
       <div className={styles.BasicInfo}>
-        <div>Arantasar</div>
-        <div>janusz.guzowski@gmail.com</div>
+        <div>{user.name}</div>
+        <div>{user.email}</div>
       </div>
       <div className={styles.Stats}>
         <div className={styles.StatsItem}>
           <div>Dni w serwisie</div>
-          <div>54</div>
+          <div>{user.daysInService}</div>
         </div>
         <div className={styles.StatsItem}>
           <div>Dodanych przepisów</div>
-          <div>12</div>
+          <div>{user.recipes.length}</div>
         </div>
         <div className={styles.StatsItem}>
           <div>Ulubione przepisy</div>
-          <div>16</div>
+          <div>{user.favourites.length}</div>
         </div>
         <div className={styles.StatsItem}>
           <div>Zebrane polubienia</div>
-          <div>50</div>
+          <div>{user.receivedLikes}</div>
+        </div>
+        <div className={styles.StatsItemLast}>
+          <div>Ostatnie logowanie</div>
+          <div>{user.lastLogin}</div>
         </div>
       </div>
     </div>
