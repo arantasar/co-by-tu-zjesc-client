@@ -9,7 +9,7 @@ const UserInfo = () => {
   return (
     <div className={styles.UserPanel}>
       <div className={styles.Avatar}>
-        <img src={avatar} alt="Avatar" />
+        <img src={user.photoPath || avatar} alt="Avatar" />
       </div>
       <div className={styles.BasicInfo}>
         <div>{user.name}</div>
