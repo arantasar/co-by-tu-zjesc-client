@@ -14,13 +14,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import DeleteIcon from "@material-ui/icons/Delete";
+import OpenFileButton from "../../atoms/OpenFileButton/OpenFileButton";
 
 const IngredientsAdmin = () => {
   const [items, setItems] = useState([]);
   const [units, setUnits] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
   const [selectedUnits, setSelectednits] = useState([]);
-  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState(null);
 
   const deleteIngredient = (id) =>
     axios
@@ -48,11 +49,18 @@ const IngredientsAdmin = () => {
       const item = units.find((unit) => unit.id === id);
       ans.push(item);
     });
-    axios
-      .post("http://localhost:5000/api/ingredients", {
-        name: newIngredient,
-        units: ans,
-      })
+
+    const data = new FormData();
+    data.append("photo", file);
+    data.append("name", newIngredient);
+    data.append("units", JSON.stringify(ans));
+    data.append("alternatives", JSON.stringify([]));
+
+    axios({
+      method: "post",
+      url: "http://localhost:5000/api/ingredients",
+      data: data,
+    })
       .then(() => axios.get("http://localhost:5000/api/ingredients"))
       .then((res) => {
         setItems(res.data);
@@ -61,20 +69,13 @@ const IngredientsAdmin = () => {
       });
   };
 
-  const fileUpload = () => {
-    document.getElementById("file-upload").click();
-  };
-
   const handleNameChange = (e) => {
     setNewIngredient(e.target.value);
   };
 
   const fileUploadChange = (event) => {
-    if (event.target.files[0]) {
-      setFileName(event.target.files[0].name);
-    } else {
-      setFileName("");
-    }
+    const file = event.files ? event.files[0] : null;
+    setFile(file);
   };
 
   useEffect(() => {
@@ -110,7 +111,13 @@ const IngredientsAdmin = () => {
                   <TableCell align="right">
                     {row.units.map((i) => i.name).join(", ")}
                   </TableCell>
-                  <TableCell align="right">{row.photo}</TableCell>
+                  <TableCell align="right">
+                    <img
+                      style={{ height: "75px" }}
+                      src={row.photoPath}
+                      alt={row.name}
+                    />
+                  </TableCell>
                   <TableCell align="right">
                     <DeleteIcon
                       cursor="pointer"
@@ -152,18 +159,11 @@ const IngredientsAdmin = () => {
                 ))}
               </FormGroup>
             </FormControl>
-            <div className={styles.Button}>
-              <input
-                accept="image/*"
-                id="file-upload"
-                type="file"
-                style={{ display: "none" }}
-                onChange={(e) => fileUploadChange(e)}
-              />
-              <Button fullWidth variant="contained" onClick={fileUpload}>
-                {fileName || "Wybierz zdjęcie"}
-              </Button>
-            </div>
+            <OpenFileButton
+              fileName={file && file.name}
+              fileUploadChange={fileUploadChange}
+              fullWidth
+            />
             <div className={styles.Button}>
               <Button
                 fullWidth
