@@ -1,10 +1,11 @@
 export default interface IUser {
+  description: string;
   email: string;
   name: string;
   lastLogin: string;
   role: string;
-  favourites: any[];
-  recipes: any[];
+  favourites: object[];
+  recipes: object[];
   photoPath: string;
   daysInService: number;
   receivedLikes: number;

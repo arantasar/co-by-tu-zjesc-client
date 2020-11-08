@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Formik } from "formik";
 import LoginForm from "./Login";
-import { UserContext } from "../../../context/user-context";
+import UserContext from "../../../context/UserContext";
 import { validationSchema } from "./validationSchema";
 import { initialValues } from "./initialValues";
 import UniversalModal from "../../organisms/UniversalModal";

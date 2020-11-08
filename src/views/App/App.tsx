@@ -6,7 +6,7 @@ import Footer from "../../components/organisms/Footer/Footer";
 import Navbar from "../../components/organisms/Navbar/Navbar";
 import RouterSwitch from "./../../router/RouterSwitch";
 import theme from "../../theme";
-import UserContextProvider from "../../context/user-context";
+import UserContextProvider from "../../context/UserContextProvider";
 import "./App.scss";
 
 const App = () => (

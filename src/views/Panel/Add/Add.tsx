@@ -8,7 +8,7 @@ import SelectRecipeIngredient from "../../../components/molecules/SelectRecipeIn
 import IExtendedIngredient from "../../../models/IExtendedIngredient";
 import Selected from "./Selected/Selected";
 import Description from "./Description/Description";
-import { UserContext } from "../../../context/user-context";
+import UserContext from "../../../context/UserContext";
 import Categories from "./Categories/Categories";
 import ICategory from "../../../models/ICategory";
 import IDiet from "../../../models/IDiet";

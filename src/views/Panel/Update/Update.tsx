@@ -4,15 +4,19 @@ import styles from "../Add/Add.module.scss";
 import axios from "axios";
 import { Button, Container, Grid, TextField } from "@material-ui/core";
 import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
-import { UserContext } from "../../../context/user-context";
+import UserContext from "../../../context/UserContext";
 import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileButton";
 import UniversalModal from "../../../components/organisms/UniversalModal";
 
 const UpdateView = () => {
   const ctx = useContext(UserContext);
 
-  const [email, setEmail] = useState(ctx.user.email);
-  const [description, setDescription] = useState(ctx.user.description);
+  const [email, setEmail] = useState<string>(
+    (ctx.user && ctx.user.email) || ""
+  );
+  const [description, setDescription] = useState<string>(
+    (ctx.user && ctx.user.description) || ""
+  );
   const [photo, setPhoto] = useState<File | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [header, setHeader] = useState("");
