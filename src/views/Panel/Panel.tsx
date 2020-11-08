@@ -37,11 +37,12 @@ const Panel = () => {
                 Ulubione
               </div>
               <div className={styles.DashboardItem}></div>
-              <div
+              <Link
+                to={"/panel/update"}
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
               >
-                Ustawienia
-              </div>
+                Edytuj profil
+              </Link>
               <div className={styles.DashboardItem}></div>
               <div className={styles.DashboardItem}></div>
             </div>

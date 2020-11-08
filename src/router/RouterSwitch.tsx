@@ -7,6 +7,7 @@ import AdminView from "../views/Admin/Admin";
 import PanelView from "../views/Panel/Panel";
 import AddView from "../views/Panel/Add/Add";
 import { Switch, Route } from "react-router-dom";
+import EditView from "../views/Panel/Update/Update";
 
 const RouterSwitch = () => {
   const links = [
@@ -15,6 +16,7 @@ const RouterSwitch = () => {
     { path: "/admin", component: AdminView },
     { path: "/login", component: LoginView },
     { path: "/panel/add", component: AddView },
+    { path: "/panel/update", component: EditView },
     { path: "/panel", component: PanelView },
     {
       path: "/",
