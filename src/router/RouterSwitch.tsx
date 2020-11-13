@@ -3,7 +3,7 @@ import HomeView from "../views/Home/Home";
 import RegisterView from "../views/Register/Register";
 import LoginView from "../views/Login/Login";
 import RecipeView from "../views/Recipe/Recipe";
-import AdminView from "../views/Admin/Admin";
+import AdminView from "../views/AdminPanel/Admin";
 import PanelView from "../views/Panel/Panel";
 import AddView from "../views/Panel/Add/Add";
 import { Switch, Route } from "react-router-dom";

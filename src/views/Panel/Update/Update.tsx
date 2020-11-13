@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import styles from "../Add/Add.module.scss";
 import axios from "axios";
 import { Button, Container, Grid, TextField } from "@material-ui/core";
@@ -7,6 +6,7 @@ import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
 import UserContext from "../../../context/UserContext";
 import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileButton";
 import UniversalModal from "../../../components/organisms/UniversalModal";
+import TextArea from "../../../components/atoms/TextArea/TextArea";
 
 const UpdateView = () => {
   const ctx = useContext(UserContext);
@@ -79,12 +79,10 @@ const UpdateView = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             <h3>O mnie</h3>
-            <StyledTextArea
+            <TextArea
               id="description"
-              name="description"
-              rows={10}
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              changeHandler={(e) => setDescription(e.currentTarget.value)}
             />
             <h3>Zdjęcie</h3>
             <OpenFileButton
@@ -114,14 +112,3 @@ const UpdateView = () => {
 };
 
 export default UpdateView;
-
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  border-radius: 15px;
-  border: 2px solid #ee24c4;
-  padding: 20px;
-
-  &:focus {
-    outline: none;
-  }
-`;
