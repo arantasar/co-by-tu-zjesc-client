@@ -15,6 +15,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import DeleteIcon from "@material-ui/icons/Delete";
 import OpenFileButton from "../../atoms/OpenFileButton/OpenFileButton";
+import placeholder from "./../../../assets/placeholders/ingredient-placeholder.svg";
 
 const IngredientsAdmin = () => {
   const [items, setItems] = useState([]);
@@ -114,7 +115,7 @@ const IngredientsAdmin = () => {
                   <TableCell align="right">
                     <img
                       style={{ height: "75px" }}
-                      src={row.photoPath}
+                      src={row.photoPath || placeholder}
                       alt={row.name}
                     />
                   </TableCell>
