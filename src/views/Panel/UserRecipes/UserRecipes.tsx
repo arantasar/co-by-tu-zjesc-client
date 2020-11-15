@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../Add/Add.module.scss";
+import styled from "styled-components";
 import axios from "../../../axios";
 import { Button, Container, Grid, Paper, TextField } from "@material-ui/core";
 import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
@@ -12,6 +13,7 @@ import TableBody from "@material-ui/core/TableBody";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import placeholder from "./../../../assets/placeholders/meal-placeholder.jpg";
+import { Link } from "react-router-dom";
 
 const UserRecipes = () => {
   const { user } = useContext(UserContext);
@@ -52,7 +54,7 @@ const UserRecipes = () => {
                   {recipes.map((row) => (
                     <TableRow key={row.id} hover>
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        <StyledLink to={"/"}>{row.name}</StyledLink>
                       </TableCell>
                       <TableCell>{row.dateAdded}</TableCell>
                       <TableCell align="center">
@@ -94,3 +96,7 @@ const UserRecipes = () => {
 };
 
 export default UserRecipes;
+
+const StyledLink = styled(Link)`
+  color: #ee24c4;
+`;
