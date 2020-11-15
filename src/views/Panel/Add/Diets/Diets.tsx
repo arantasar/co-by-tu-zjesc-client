@@ -22,7 +22,7 @@ const Diets: React.FC<IProps> = ({
           control={
             <Checkbox
               id={diet.id}
-              checked={selectedDiets.includes(diet)}
+              checked={selectedDiets.map((diet) => diet.id).includes(diet.id)}
               onChange={selectDietHandler}
             />
           }
