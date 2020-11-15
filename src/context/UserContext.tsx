@@ -4,6 +4,7 @@ import { IUserContext } from "../models/IUserContext";
 const context = {
   isUserLogged: false,
   user: {
+    id: "",
     email: "",
     name: "",
     description: "",

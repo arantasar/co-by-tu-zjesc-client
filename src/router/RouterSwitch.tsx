@@ -9,6 +9,7 @@ import AddView from "../views/Panel/Add/Add";
 import { Switch, Route } from "react-router-dom";
 import EditView from "../views/Panel/Update/Update";
 import RecipeUpdate from "../views/Panel/RecipeUpdate/RecipeUpdate";
+import UserRecipes from "../views/Panel/UserRecipes/UserRecipes";
 
 const RouterSwitch = () => {
   const links = [
@@ -20,8 +21,9 @@ const RouterSwitch = () => {
       path: "/panel/update/:id",
       component: RecipeUpdate,
     },
-    { path: "/panel/add", component: AddView },
     { path: "/panel/update", component: EditView },
+    { path: "/panel/add", component: AddView },
+    { path: "/panel/recipes", component: UserRecipes },
     { path: "/panel", component: PanelView },
     {
       path: "/",
