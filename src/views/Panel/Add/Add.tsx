@@ -15,9 +15,11 @@ import IDiet from "../../../models/IDiet";
 import useAppContext from "../../../hooks/useAppContext";
 import Diets from "./Diets/Diets";
 import UniversalModal from "../../../components/organisms/UniversalModal";
+import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileButton";
 
 const Add = () => {
   const ctx = useContext(UserContext);
+  const [file, setFile] = useState<File>();
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
@@ -32,6 +34,11 @@ const Add = () => {
   const [text, setText] = useState("");
 
   const { categories, diets } = useAppContext();
+
+  const fileUploadChange = (event: HTMLInputElement | null) => {
+    const file = event && event.files ? event.files[0] : undefined;
+    setFile(file);
+  };
 
   const handleClose = () => {
     setModalOpen(false);
@@ -126,13 +133,17 @@ const Add = () => {
         ingredient: rest,
       })
     );
-    const data = {
-      name,
-      description,
-      recipeLines,
-      categories: selectedCategories,
-      diets: selectedDiets,
-    };
+
+    const data = new FormData();
+
+    if (file) {
+      data.append("photo", file as Blob);
+    }
+    data.append("name", name);
+    data.append("description", description);
+    data.append("recipeLines", JSON.stringify(recipeLines));
+    data.append("categories", JSON.stringify(selectedCategories));
+    data.append("diets", JSON.stringify(selectedDiets));
 
     axios
       .post("/recipes", data, {
@@ -193,7 +204,10 @@ const Add = () => {
               description={description}
               setDescription={handleDescription}
             />
-            <div>Zdjęcie</div>
+            <OpenFileButton
+              fileName={(file && file.name) || ""}
+              fileUploadChange={fileUploadChange}
+            />
             <div>
               <Categories
                 categories={categories}
