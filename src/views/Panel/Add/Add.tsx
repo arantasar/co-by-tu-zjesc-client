@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Grid, TextField, Button } from "@material-ui/core";
 import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
 import styles from "./Add.module.scss";
@@ -19,8 +20,12 @@ import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileBut
 
 const Add = () => {
   const ctx = useContext(UserContext);
+  let history = useHistory();
+  const [newRecipeId, setNewRecipeId] = useState<string>("");
   const [file, setFile] = useState<File>();
   const [name, setName] = useState<string>("");
+  const [prepareTime, setPrepareTime] = useState<number>(0);
+  const [size, setSize] = useState<number>(0);
   const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
   const [selectedIngredients, setSelectedIngredients] = useState<
@@ -42,6 +47,7 @@ const Add = () => {
 
   const handleClose = () => {
     setModalOpen(false);
+    history.push("/recipe/" + newRecipeId);
   };
 
   const selectCategoryHandler = (
@@ -74,6 +80,20 @@ const Add = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+  };
+  const handlePrepareTimeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const prepareTime = +event.target.value;
+    if (prepareTime >= 0) {
+      setPrepareTime(prepareTime);
+    }
+  };
+  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const size = +event.target.value;
+    if (size >= 0) {
+      setSize(+size);
+    }
   };
 
   useEffect(() => {
@@ -141,6 +161,8 @@ const Add = () => {
     }
     data.append("name", name);
     data.append("description", description);
+    data.append("size", String(size));
+    data.append("prepareTime", String(prepareTime));
     data.append("recipeLines", JSON.stringify(recipeLines));
     data.append("categories", JSON.stringify(selectedCategories));
     data.append("diets", JSON.stringify(selectedDiets));
@@ -151,7 +173,8 @@ const Add = () => {
           Authorization: `Bearer ${ctx.token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
+        setNewRecipeId(res.data.id);
         setHeader("Przepis dodany");
         setText("Przepis został dodany!");
         setModalOpen(true);
@@ -218,6 +241,30 @@ const Add = () => {
                 diets={diets}
                 selectedDiets={selectedDiets}
                 selectDietHandler={selectDietsHandler}
+              />
+            </div>
+            <div>
+              <h3>Czas przygotowania</h3>
+              <TextField
+                className={styles.Name}
+                id="standard-basic"
+                label="Czas przygotowania (w minutach)"
+                color="secondary"
+                value={prepareTime}
+                type={"number"}
+                onChange={handlePrepareTimeChange}
+              />
+            </div>{" "}
+            <div>
+              <h3>Wielkość porcji</h3>
+              <TextField
+                className={styles.Name}
+                id="standard-basic"
+                label="Wielkość porcji (na ile osób)"
+                color="secondary"
+                value={size}
+                type={"number"}
+                onChange={handleSizeChange}
               />
             </div>
             <Button
