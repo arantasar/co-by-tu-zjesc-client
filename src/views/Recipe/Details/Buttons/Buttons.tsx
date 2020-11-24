@@ -3,25 +3,43 @@ import { Button } from "@material-ui/core";
 import { FavoriteBorder, ThumbUpAlt } from "@material-ui/icons";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import styles from "./Buttons.module.scss";
+import { FC } from "react";
 
-const Buttons = () => (
-  <div className={styles.wrapper}>
-    <Button variant="contained" color="secondary">
-      Generuj listę zakupów
-    </Button>
-    <div className={styles.asideWrapper}>
-      <VisibilityIcon />
-      <span className={styles.aside}>42</span>
+interface IButttonsProps {
+  likes: number;
+  inFavourite: number;
+  viewCounter: number;
+}
+
+const Buttons: FC<IButttonsProps> = ({ likes, inFavourite, viewCounter }) => {
+  const icons = [
+    {
+      value: viewCounter,
+      component: <VisibilityIcon />,
+    },
+    {
+      value: inFavourite,
+      component: <FavoriteBorder />,
+    },
+    {
+      value: likes,
+      component: <ThumbUpAlt />,
+    },
+  ];
+
+  return (
+    <div className={styles.wrapper}>
+      <Button variant="contained" color="secondary">
+        Generuj listę zakupów
+      </Button>
+      {icons.map((icon, index) => (
+        <div className={styles.asideWrapper} key={index}>
+          {icon.component}
+          <span className={styles.aside}>{icon.value}</span>
+        </div>
+      ))}
     </div>
-    <div className={styles.asideWrapper}>
-      <FavoriteBorder />
-      <span className={styles.aside}>12</span>
-    </div>
-    <div className={styles.asideWrapper}>
-      <ThumbUpAlt />
-      <span className={styles.aside}>20</span>
-    </div>
-  </div>
-);
+  );
+};
 
 export default Buttons;
