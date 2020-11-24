@@ -22,6 +22,8 @@ const Details: FC<IDetailsProps> = ({ recipe }) => {
     user,
     userId,
     viewCounter,
+    prepareTime,
+    size,
   } = recipe;
 
   return (
@@ -38,11 +40,11 @@ const Details: FC<IDetailsProps> = ({ recipe }) => {
       <div className={styles.grid}>
         <div>
           <h3>Czas przygotowania</h3>
-          <p>30 minut</p>
+          <p>{prepareTime} minut</p>
         </div>
         <div>
           <h3>Ilość porcji</h3>
-          <p>4</p>
+          <p>{size}</p>
         </div>
       </div>
       <h2>Składniki</h2>

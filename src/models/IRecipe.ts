@@ -16,4 +16,6 @@ export default interface IRecipe {
   user: IUser;
   userId: string;
   viewCounter: number;
+  size: number;
+  prepareTime: number;
 }
