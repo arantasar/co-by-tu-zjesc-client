@@ -4,6 +4,7 @@ import IRecipeLine from "./IRecipeLine";
 import IUser from "./IUser";
 
 export default interface IRecipe {
+  id: string;
   categories: ICategory[];
   dateAdded: string;
   description: string;

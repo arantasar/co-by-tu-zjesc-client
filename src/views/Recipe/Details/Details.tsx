@@ -7,9 +7,10 @@ import styled from "styled-components";
 
 interface IDetailsProps {
   recipe: IRecipe;
+  refresh: (updatedRecipe: IRecipe) => void;
 }
 
-const Details: FC<IDetailsProps> = ({ recipe }) => {
+const Details: FC<IDetailsProps> = ({ recipe, refresh }) => {
   const {
     categories,
     dateAdded,
@@ -35,6 +36,7 @@ const Details: FC<IDetailsProps> = ({ recipe }) => {
           inFavourite={inFavourite}
           likes={likes}
           viewCounter={viewCounter}
+          refresh={refresh}
         />
       </div>
       <div className={styles.grid}>

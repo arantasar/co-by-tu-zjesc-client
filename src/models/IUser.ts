@@ -1,3 +1,5 @@
+import IRecipe from "./IRecipe";
+
 export default interface IUser {
   id: string;
   description: string;
@@ -5,7 +7,7 @@ export default interface IUser {
   name: string;
   lastLogin: string;
   role: string;
-  favourites: object[];
+  favourites: IRecipe[];
   recipes: object[];
   photoPath: string;
   daysInService: number;
