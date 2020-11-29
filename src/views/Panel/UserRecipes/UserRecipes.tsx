@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "../Add/Add.module.scss";
 import styled from "styled-components";
 import axios from "../../../axios";
-import { Button, Container, Grid, Paper, TextField } from "@material-ui/core";
+import { Container, Grid, Paper } from "@material-ui/core";
 import UserInfo from "../../../components/organisms/UserInfo/UserInfo";
 import UserContext from "../../../context/UserContext";
 import Table from "@material-ui/core/Table";
@@ -14,11 +14,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import placeholder from "./../../../assets/placeholders/meal-placeholder.jpg";
 import { Link } from "react-router-dom";
+import IRecipe from "../../../models/IRecipe";
 
 const UserRecipes = () => {
   const { user } = useContext(UserContext);
 
-  const [recipes, setRecipes] = useState<any[]>([]);
+  const [recipes, setRecipes] = useState<IRecipe[]>([]);
 
   useEffect(() => {
     const id = (user && user.id) || "lub id z urla";
@@ -54,12 +55,18 @@ const UserRecipes = () => {
                   {recipes.map((row) => (
                     <TableRow key={row.id} hover>
                       <TableCell component="th" scope="row">
-                        <StyledLink to={"/"}>{row.name}</StyledLink>
+                        <StyledLink to={`/recipe/${row.id}`}>
+                          {row.name}
+                        </StyledLink>
                       </TableCell>
                       <TableCell>{row.dateAdded}</TableCell>
                       <TableCell align="center">
                         <img
-                          style={{ height: "75px" }}
+                          style={{
+                            height: "100px",
+                            width: "100px",
+                            objectFit: "cover",
+                          }}
                           src={row.photoPath || placeholder}
                           alt={row.name}
                         />

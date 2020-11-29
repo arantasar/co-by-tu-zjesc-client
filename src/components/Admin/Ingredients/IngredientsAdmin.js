@@ -114,7 +114,11 @@ const IngredientsAdmin = () => {
                   </TableCell>
                   <TableCell align="right">
                     <img
-                      style={{ height: "75px" }}
+                      style={{
+                        height: "100px",
+                        width: "100px",
+                        objectFit: "cover",
+                      }}
                       src={row.photoPath || placeholder}
                       alt={row.name}
                     />
