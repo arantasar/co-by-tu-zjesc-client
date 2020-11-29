@@ -13,12 +13,13 @@ import styled from "styled-components";
 import { useParams } from "react-router";
 import axios from "./../../../../axios";
 import IRecipe from "../../../../models/IRecipe";
+import IUser from "../../../../models/IUser";
 
 interface IButttonsProps {
   likes: number;
   inFavourite: number;
   viewCounter: number;
-  refresh: (updatedRecipe: IRecipe) => void;
+  refresh: (recipe: IRecipe, user: IUser) => void;
 }
 
 const Buttons: FC<IButttonsProps> = ({
@@ -69,7 +70,7 @@ const Buttons: FC<IButttonsProps> = ({
       url = "recipes/likes/";
     }
     axios
-      .post<IRecipe>(
+      .post<{ recipe: IRecipe; user: IUser }>(
         url,
         { id },
         {
@@ -79,7 +80,7 @@ const Buttons: FC<IButttonsProps> = ({
         }
       )
       .then((res) => {
-        refresh(res.data);
+        refresh(res.data.recipe, res.data.user);
       });
   };
 

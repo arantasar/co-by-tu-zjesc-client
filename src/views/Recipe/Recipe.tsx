@@ -1,16 +1,22 @@
 import styles from "./Recipe.module.scss";
 import defaultPhotoJpg from "./../../assets/spaghetti-big.jpg";
 import Details from "./Details/Details";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import axios from "./../../axios";
 import { useParams } from "react-router-dom";
 import IRecipe from "../../models/IRecipe";
+import UserContext from "../../context/UserContext";
+import IUser from "../../models/IUser";
 
 interface RecipeProps {}
 
 const Recipe: FC<RecipeProps> = () => {
   const [recipe, setRecipe] = useState<IRecipe>();
-  const refresh = (updatedRecipe: IRecipe) => setRecipe(updatedRecipe);
+  const ctx = useContext(UserContext);
+  const refresh = (recipe: IRecipe, user: IUser) => {
+    setRecipe(recipe);
+    ctx.updateUser(user);
+  };
 
   let { id } = useParams();
 

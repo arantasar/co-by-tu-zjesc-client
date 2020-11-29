@@ -13,11 +13,12 @@ const UserContextProvider: FC = ({ children }) => {
     !!localStorage.getItem("isUserLogged")
   );
 
-  const updateUser = ({ description, email, photoPath }: IUser) => {
+  const updateUser = ({ description, email, photoPath, ...rest }: IUser) => {
     setUser((prev) => {
       return prev
         ? {
             ...prev,
+            ...rest,
             description,
             email,
             photoPath,

@@ -4,10 +4,11 @@ import Buttons from "./Buttons/Buttons";
 import IRecipe from "../../../models/IRecipe";
 import { FC } from "react";
 import styled from "styled-components";
+import IUser from "../../../models/IUser";
 
 interface IDetailsProps {
   recipe: IRecipe;
-  refresh: (updatedRecipe: IRecipe) => void;
+  refresh: (recipe: IRecipe, user: IUser) => void;
 }
 
 const Details: FC<IDetailsProps> = ({ recipe, refresh }) => {
