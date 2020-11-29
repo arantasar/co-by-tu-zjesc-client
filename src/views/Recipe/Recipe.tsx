@@ -13,9 +13,11 @@ interface RecipeProps {}
 const Recipe: FC<RecipeProps> = () => {
   const [recipe, setRecipe] = useState<IRecipe>();
   const ctx = useContext(UserContext);
-  const refresh = (recipe: IRecipe, user: IUser) => {
+  const refresh = (recipe: IRecipe, user?: IUser) => {
     setRecipe(recipe);
-    ctx.updateUser(user);
+    if (user) {
+      ctx.updateUser(user);
+    }
   };
 
   let { id } = useParams();

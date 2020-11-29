@@ -8,7 +8,7 @@ import IUser from "../../../models/IUser";
 
 interface IDetailsProps {
   recipe: IRecipe;
-  refresh: (recipe: IRecipe, user: IUser) => void;
+  refresh: (recipe: IRecipe, user?: IUser) => void;
 }
 
 const Details: FC<IDetailsProps> = ({ recipe, refresh }) => {

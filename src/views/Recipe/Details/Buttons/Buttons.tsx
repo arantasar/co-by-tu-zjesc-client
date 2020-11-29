@@ -19,7 +19,7 @@ interface IButttonsProps {
   likes: number;
   inFavourite: number;
   viewCounter: number;
-  refresh: (recipe: IRecipe, user: IUser) => void;
+  refresh: (recipe: IRecipe, user?: IUser) => void;
 }
 
 const Buttons: FC<IButttonsProps> = ({
@@ -65,12 +65,12 @@ const Buttons: FC<IButttonsProps> = ({
   const iconClickHandler = (icon: string) => {
     let url = "";
     if (icon === "favourites") {
-      url = "recipes/favourites";
+      url = "recipes/favourites/";
     } else if (icon === "likes") {
-      url = "recipes/likes";
+      url = "recipes/likes/";
     }
     axios
-      .post<{ recipe: IRecipe; user: IUser }>(
+      .post(
         url,
         { id },
         {
@@ -80,7 +80,11 @@ const Buttons: FC<IButttonsProps> = ({
         }
       )
       .then((res) => {
-        refresh(res.data.recipe, res.data.user);
+        if (icon === "favourites") {
+          refresh(res.data.recipe, res.data.user);
+        } else if (icon === "likes") {
+          refresh(res.data);
+        }
       });
   };
 
