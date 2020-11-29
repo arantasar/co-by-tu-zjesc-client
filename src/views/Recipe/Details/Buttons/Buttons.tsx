@@ -65,9 +65,9 @@ const Buttons: FC<IButttonsProps> = ({
   const iconClickHandler = (icon: string) => {
     let url = "";
     if (icon === "favourites") {
-      url = "recipes/favourites/";
+      url = "recipes/favourites";
     } else if (icon === "likes") {
-      url = "recipes/likes/";
+      url = "recipes/likes";
     }
     axios
       .post<{ recipe: IRecipe; user: IUser }>(
