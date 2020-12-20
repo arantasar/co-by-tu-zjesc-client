@@ -12,4 +12,5 @@ export default interface IUser {
   photoPath: string;
   daysInService: number;
   receivedLikes: number;
+  dateCreated: string;
 }

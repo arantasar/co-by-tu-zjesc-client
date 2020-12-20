@@ -15,6 +15,7 @@ const context = {
     photoPath: "",
     daysInService: 0,
     receivedLikes: 0,
+    dateCreated: "",
   },
   token: "",
   login: () => {},

@@ -6,6 +6,16 @@ import UserContext from "../../../context/UserContext";
 const UserInfo = () => {
   const { user } = useContext(UserContext);
 
+  const dateCreated = (user && user.dateCreated) || "";
+  const day = dateCreated.slice(0, 2);
+  const month = dateCreated.slice(3, 5);
+  const year = dateCreated.slice(6, 10);
+  const accountCreated = new Date(+year, +month - 1, +day);
+  const today = new Date();
+
+  const diffTime = Math.abs(+today - +accountCreated);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
   return (
     <div className={styles.UserPanel}>
       <div className={styles.Avatar}>
@@ -18,7 +28,7 @@ const UserInfo = () => {
       <div className={styles.Stats}>
         <div className={styles.StatsItem}>
           <div>Dni w serwisie</div>
-          <div>{user && user.daysInService}</div>
+          <div>{diffDays}</div>
         </div>
         <div className={styles.StatsItem}>
           <div>Dodanych przepisów</div>
