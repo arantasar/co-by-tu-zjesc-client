@@ -2,13 +2,17 @@ import * as React from "react";
 import RecipeCard from "./RecipeCard/RecipeCard";
 import { Container } from "@material-ui/core";
 import styles from "./RecipeCards.module.scss";
-import recipeCardsArr from "./../../data/Recipes";
 import { Link } from "react-router-dom";
+import IRecipe from "../../models/IRecipe";
 
-const recipeCards: React.FC = () => {
-  const recipeCards = recipeCardsArr.map((card, index) => (
-    <Link key={index} to={"/recipe/" + card.id}>
-      <RecipeCard {...card} />
+interface RecipeCardsProps {
+  newestRecipes: IRecipe[];
+}
+
+const RecipeCards: React.FC<RecipeCardsProps> = ({ newestRecipes }) => {
+  const recipeCards = newestRecipes.map((recipe) => (
+    <Link key={recipe.id} to={"/recipe/" + recipe.id}>
+      <RecipeCard recipe={recipe} />
     </Link>
   ));
 
@@ -22,4 +26,4 @@ const recipeCards: React.FC = () => {
   );
 };
 
-export default recipeCards;
+export default RecipeCards;

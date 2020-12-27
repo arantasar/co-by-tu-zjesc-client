@@ -4,36 +4,48 @@ import Icons from "./Icons/Icons";
 import styles from "./RecipeCard.module.scss";
 import defaultImage from "./../../../assets/spaghetti.webp";
 import defaultImagePng from "./../../../assets/spaghetti.png";
-import RecipeCardProps from "./../../../interfaces/RecipeCardProps";
+import IRecipe from "../../../models/IRecipe";
 
-const recipeCard = ({
-  author,
-  image,
-  dsc,
-  date,
-  name,
-  ...props
-}: RecipeCardProps) => {
+interface RecipeCardProps {
+  recipe: IRecipe;
+}
+
+const RecipeCard: React.FC<RecipeCardProps> = ({
+  recipe: {
+    name,
+    photoPath,
+    user,
+    dateAdded,
+    description,
+    viewCounter,
+    likes,
+    inFavourite,
+  },
+}) => {
   const img = (
     <picture>
-      <source srcSet={image || defaultImage} type="image/webp" />
-      <img className={styles.image} src={image || defaultImagePng} alt={name} />
+      <source srcSet={photoPath || defaultImage} type="image/webp" />
+      <img
+        className={styles.image}
+        src={photoPath || defaultImagePng}
+        alt={name}
+      />
     </picture>
   );
 
   return (
     <div className={styles.outerWrapper}>
       <div className={styles.wrapper}>
-        <Header author={author} date={date} />
+        <Header author={user && user.name} date={dateAdded} />
       </div>
       {img}
       <div className={styles.wrapper}>
         <p className={styles.name}>{name}</p>
-        <p className={styles.dsc}>{dsc}</p>
-        <Icons {...props} />
+        <p className={styles.dsc}>{description}</p>
+        <Icons views={viewCounter} likes={likes} stars={inFavourite} />
       </div>
     </div>
   );
 };
 
-export default recipeCard;
+export default RecipeCard;

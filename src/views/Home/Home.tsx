@@ -1,7 +1,7 @@
 import Hero from "../../components/organisms/Hero/Hero";
 import RecipeCards from "../../components/RecipeCards/RecipeCards";
 import SearchResults from "../../components/organisms/SearchResults/SearchResults";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Search from "../../components/organisms/Search/Search";
 import Item from "../../models/IItem";
 import useAppContext from "../../hooks/useAppContext";
@@ -9,7 +9,7 @@ import useAppContext from "../../hooks/useAppContext";
 const HomeView = () => {
   const [showResults, setShowResults] = useState(false);
 
-  const { ingredients, diets, categories } = useAppContext();
+  const { ingredients, diets, categories, newestRecipes } = useAppContext();
 
   const handleSearch = (
     ingredients: Item[],
@@ -31,7 +31,7 @@ const HomeView = () => {
         search={handleSearch}
       />
       <SearchResults showResults={showResults} />
-      <RecipeCards />
+      <RecipeCards newestRecipes={newestRecipes} />
     </>
   );
 };

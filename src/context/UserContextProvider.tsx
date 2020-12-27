@@ -29,8 +29,6 @@ const UserContextProvider: FC = ({ children }) => {
   };
 
   const login = (user: IUser, token: string) => {
-
-
     setUser(user);
     setToken(token);
     setIsUserLogged(true);
