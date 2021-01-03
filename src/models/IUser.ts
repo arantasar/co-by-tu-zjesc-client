@@ -13,4 +13,5 @@ export default interface IUser {
   daysInService: number;
   receivedLikes: number;
   dateCreated: string;
+  recipesAddedCount: number;
 }

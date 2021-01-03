@@ -32,7 +32,7 @@ const UserInfo = () => {
         </div>
         <div className={styles.StatsItem}>
           <div>Dodanych przepisów</div>
-          <div>{user && user.recipes.length}</div>
+          <div>{user && user.recipesAddedCount}</div>
         </div>
         <div className={styles.StatsItem}>
           <div>Ulubione przepisy</div>

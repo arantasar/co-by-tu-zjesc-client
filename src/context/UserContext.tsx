@@ -16,6 +16,7 @@ const context = {
     daysInService: 0,
     receivedLikes: 0,
     dateCreated: "",
+    recipesAddedCount: 0
   },
   token: "",
   login: () => {},

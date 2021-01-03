@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import withModal from "../../hoc/WithModal/WithModal";
 import axios from "axios";
+import apiAxios from "./../../axios/";
 import styles from "./Panel.module.scss";
 import { Container, Grid } from "@material-ui/core";
 import UserInfo from "../../components/organisms/UserInfo/UserInfo";
 import { Link } from "react-router-dom";
+import UserContext from "../../context/UserContext";
+import IUser from "../../models/IUser";
 
 const Panel = () => {
+  const ctx = useContext(UserContext);
+  useEffect(() => {
+    const id = ctx.user && ctx.user.id;
+    apiAxios.get<IUser>("/users/" + id).then((res) => {
+      ctx.updateUser(res.data);
+    });
+  }, []);
+
   return (
     <div className={styles.Panel}>
       <Container>
