@@ -5,5 +5,6 @@ export default interface IIngredient {
   name: string;
   units: IUnit[];
   alternatives: IUnit[];
+  photoPath: string;
   photoUrl: string;
 }
