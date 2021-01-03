@@ -10,11 +10,13 @@ import { Switch, Route } from "react-router-dom";
 import EditView from "../views/Panel/Update/Update";
 import RecipeUpdate from "../views/Panel/RecipeUpdate/RecipeUpdate";
 import UserRecipes from "../views/Panel/UserRecipes/UserRecipes";
+import ShoppingList from "../views/ShoppingList/ShoppingList";
 
 const RouterSwitch = () => {
   const links = [
     { path: "/recipe/:id", component: RecipeView },
     { path: "/register", component: RegisterView },
+    { path: "/shopping-list/:id", component: ShoppingList },
     { path: "/admin", component: AdminView },
     { path: "/login", component: LoginView },
     {

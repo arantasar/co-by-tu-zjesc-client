@@ -10,7 +10,7 @@ import styles from "./Buttons.module.scss";
 import { FC, useContext } from "react";
 import UserContext from "../../../../context/UserContext";
 import styled from "styled-components";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import axios from "./../../../../axios";
 import IRecipe from "../../../../models/IRecipe";
 import IUser from "../../../../models/IUser";
@@ -30,6 +30,7 @@ const Buttons: FC<IButttonsProps> = ({
 }) => {
   const user = useContext(UserContext);
   const { id } = useParams();
+  const history = useHistory();
   const FavouriteIcon = () => {
     if (id && user.user) {
       return user.user.favourites.map((fav) => fav.id).includes(id) ? (
@@ -90,7 +91,11 @@ const Buttons: FC<IButttonsProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <Button variant="contained" color="secondary">
+      <Button
+        onClick={() => history.push("/shopping-list/" + id)}
+        variant="contained"
+        color="secondary"
+      >
         Generuj listę zakupów
       </Button>
       {icons.map((icon, index) => (
