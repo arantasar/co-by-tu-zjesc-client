@@ -24,7 +24,7 @@ const ShoppingList = () => {
             <>
               <Header>{recipe.name} - lista zakupów</Header>
               {recipe.recipeLines.map((line) => (
-                <ShoppingItem recipeLine={line} />
+                <ShoppingItem key={line.id} recipeLine={line} />
               ))}
             </>
           )}

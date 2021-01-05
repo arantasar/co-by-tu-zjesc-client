@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import IRecipeLine from "../../../models/IRecipeLine";
 
@@ -6,9 +6,19 @@ interface IProps {
   recipeLine: IRecipeLine;
 }
 
+interface DeletedProps {
+  readonly isDeleted: boolean;
+}
+
 const ShoppingItem: FC<IProps> = ({ recipeLine }) => {
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const toggleItem = () => {
+    setIsDeleted((prev) => !prev);
+  };
+
   return (
-    <Item>
+    <Item isDeleted={isDeleted}>
       <Photo>
         <img
           src={recipeLine.ingredient.photoPath}
@@ -20,7 +30,7 @@ const ShoppingItem: FC<IProps> = ({ recipeLine }) => {
         {recipeLine.amount} x {recipeLine.unit.name}
       </Value>
       <ButtonWrapper>
-        <Button>Usuń</Button>
+        <Button onClick={toggleItem}>{isDeleted ? "Przywróć" : "Usuń"}</Button>
       </ButtonWrapper>
     </Item>
   );
@@ -50,6 +60,7 @@ const Photo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
   img {
     width: 75px;
     height: 75px;
@@ -58,12 +69,13 @@ const Photo = styled.div`
   }
 `;
 
-const Item = styled.div`
+const Item = styled.div<DeletedProps>`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   width: 60%;
   padding: 10px 0;
   border-top: 1px solid darkgray;
+  filter: ${(props) => (props.isDeleted ? "opacity(35%)" : "none")};
 `;
 
 const Value = styled.div`
