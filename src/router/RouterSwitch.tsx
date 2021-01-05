@@ -11,6 +11,7 @@ import EditView from "../views/Panel/Update/Update";
 import RecipeUpdate from "../views/Panel/RecipeUpdate/RecipeUpdate";
 import UserRecipes from "../views/Panel/UserRecipes/UserRecipes";
 import ShoppingList from "../views/ShoppingList/ShoppingList";
+import Favourites from "../views/Panel/Favourites/Favourites";
 
 const RouterSwitch = () => {
   const links = [
@@ -26,6 +27,7 @@ const RouterSwitch = () => {
     { path: "/panel/update", component: EditView },
     { path: "/panel/add", component: AddView },
     { path: "/panel/recipes", component: UserRecipes },
+    { path: "/panel/favourites", component: Favourites },
     { path: "/panel", component: PanelView },
     {
       path: "/",

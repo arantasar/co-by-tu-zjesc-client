@@ -19,4 +19,5 @@ export default interface IRecipe {
   viewCounter: number;
   size: number;
   prepareTime: number;
+  userName: string;
 }

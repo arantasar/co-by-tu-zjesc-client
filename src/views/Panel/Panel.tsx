@@ -41,12 +41,13 @@ const Panel = () => {
                 Dodaj przepis
               </Link>
               <div className={styles.DashboardItem}></div>
-              <div
+              <Link
+                to={"panel/favourites"}
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
                 style={{ gridColumn: "2 / 4" }}
               >
                 Ulubione
-              </div>
+              </Link>
               <div className={styles.DashboardItem}></div>
               <Link
                 to={"/panel/update"}
