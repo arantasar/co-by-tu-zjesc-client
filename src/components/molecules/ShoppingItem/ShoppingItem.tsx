@@ -1,20 +1,20 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import IRecipeLine from "../../../models/IRecipeLine";
 
 interface IProps {
   recipeLine: IRecipeLine;
+  handleDelete: (newId: string) => void;
+  isDeleted: boolean;
 }
 
 interface DeletedProps {
   readonly isDeleted: boolean;
 }
 
-const ShoppingItem: FC<IProps> = ({ recipeLine }) => {
-  const [isDeleted, setIsDeleted] = useState(false);
-
+const ShoppingItem: FC<IProps> = ({ recipeLine, handleDelete, isDeleted }) => {
   const toggleItem = () => {
-    setIsDeleted((prev) => !prev);
+    handleDelete(recipeLine.id);
   };
 
   return (

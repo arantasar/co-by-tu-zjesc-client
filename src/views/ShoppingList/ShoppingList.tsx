@@ -8,6 +8,14 @@ import ShoppingItem from "../../components/molecules/ShoppingItem/ShoppingItem";
 
 const ShoppingList = () => {
   const [recipe, setRecipe] = useState<IRecipe>();
+  const [deleted, setDeleted] = useState<string[]>([]);
+  const handleDelete = (newId: string) => {
+    if (deleted.includes(newId)) {
+      setDeleted((prev) => prev.filter((id) => id !== newId));
+    } else {
+      setDeleted((prev) => [...prev, newId]);
+    }
+  };
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,9 +31,26 @@ const ShoppingList = () => {
           {recipe && (
             <>
               <Header>{recipe.name} - lista zakupów</Header>
-              {recipe.recipeLines.map((line) => (
-                <ShoppingItem key={line.id} recipeLine={line} />
-              ))}
+              {recipe.recipeLines
+                .filter((line) => !deleted.includes(line.id))
+                .map((line) => (
+                  <ShoppingItem
+                    isDeleted={false}
+                    key={line.id}
+                    recipeLine={line}
+                    handleDelete={handleDelete}
+                  />
+                ))}
+              {recipe.recipeLines
+                .filter((line) => deleted.includes(line.id))
+                .map((line) => (
+                  <ShoppingItem
+                    isDeleted={true}
+                    key={line.id}
+                    recipeLine={line}
+                    handleDelete={handleDelete}
+                  />
+                ))}
             </>
           )}
         </Content>
