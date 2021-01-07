@@ -15,18 +15,48 @@ import EditIcon from "@material-ui/icons/Edit";
 import placeholder from "./../../../assets/placeholders/meal-placeholder.jpg";
 import { Link } from "react-router-dom";
 import IRecipe from "../../../models/IRecipe";
+import UniversalDialog from "../../../components/organisms/UniversalDialog/UniversalDialog";
+import IUser from "../../../models/IUser";
 
 const UserRecipes = () => {
-  const { user } = useContext(UserContext);
-
+  const { user, updateUser, token } = useContext(UserContext);
+  const [showModal, setShowModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState("");
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
 
-  useEffect(() => {
+  const getUserRecipes = () => {
     const id = (user && user.id) || "lub id z urla";
 
     axios.get(`/users/${id}/recipes`).then((res) => {
       setRecipes(res.data);
     });
+  };
+
+  const refresh = (user: IUser) => {
+    updateUser(user);
+  };
+
+  const removeHandler = () => {
+    const url = `recipes/${idToDelete}`;
+
+    axios
+      .delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        refresh(res.data);
+        getUserRecipes();
+      })
+      .finally(() => {
+        setShowModal(false);
+        setIdToDelete("");
+      });
+  };
+
+  useEffect(() => {
+    getUserRecipes();
   }, []);
 
   return (
@@ -79,7 +109,8 @@ const UserRecipes = () => {
                           color={"secondary"}
                           cursor="pointer"
                           onClick={() => {
-                            console.log(row.id);
+                            setIdToDelete(row.id);
+                            setShowModal(true);
                           }}
                         />{" "}
                         <EditIcon
@@ -98,6 +129,13 @@ const UserRecipes = () => {
           </Grid>
         </Grid>
       </Container>
+      <UniversalDialog
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={removeHandler}
+        header={"Usuń przepis"}
+        text={"Czy na pewno usunąć przepis"}
+      />
     </div>
   );
 };
