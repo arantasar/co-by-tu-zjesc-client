@@ -31,7 +31,11 @@ const Recipe: FC<RecipeProps> = () => {
   return (
     <div className={styles.background}>
       {recipe && (
-        <img src={(recipe && recipe.photoPath) || defaultPhotoJpg} alt="Name" />
+        <img
+          src={(recipe && recipe.photoPath) || defaultPhotoJpg}
+          alt="Name"
+          className={styles.img}
+        />
       )}
       {recipe && <Details recipe={recipe} refresh={refresh} />}
     </div>

@@ -5,6 +5,7 @@ import IRecipe from "../../../models/IRecipe";
 import { FC } from "react";
 import styled from "styled-components";
 import IUser from "../../../models/IUser";
+import RecipeAuthor from "../../../components/molecules/RecipeAuthor/RecipeAuthor";
 
 interface IDetailsProps {
   recipe: IRecipe;
@@ -31,6 +32,7 @@ const Details: FC<IDetailsProps> = ({ recipe, refresh }) => {
   return (
     <div className={styles.details}>
       <div className="date">{dateAdded}</div>
+      <RecipeAuthor id={userId} name={user.name} photoPath={user.photoPath} />
       <h1>{name}</h1>
       <div className={styles.buttons}>
         <Buttons
