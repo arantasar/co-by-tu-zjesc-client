@@ -92,12 +92,22 @@ const Buttons: FC<IButttonsProps> = ({
   return (
     <div className={styles.wrapper}>
       <Button
+        fullWidth
         onClick={() => history.push("/shopping-list/" + id)}
         variant="contained"
         color="secondary"
       >
         Generuj listę zakupów
       </Button>
+      <StyledButton>
+        <Button
+          onClick={() => history.push("/shopping-list/" + id)}
+          variant="contained"
+          color="primary"
+        >
+          Dodaj do mojego tygodnia
+        </Button>
+      </StyledButton>
       {icons.map((icon, index) => (
         <Icon
           onClick={() => iconClickHandler(icon.name)}
@@ -132,4 +142,9 @@ const Icon = styled.div<{ isLogged: boolean; hover: boolean }>`
 const Aside = styled.span`
   font-size: 16px;
   margin-left: 10px;
+`;
+
+const StyledButton = styled.div`
+  margin: 15px 0;
+  width: 100%;
 `;

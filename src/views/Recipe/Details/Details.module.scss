@@ -1,9 +1,6 @@
 .details {
-  position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 300px;
+  position: relative;
+  margin: -300px auto 0 auto;
   background-color: #f7f7f7;
   padding: 50px;
   width: 600px;
@@ -12,7 +9,7 @@
 
 .buttons {
   position: absolute;
-  top: 220px;
+  top: 310px;
   right: -220px;
 }
 
