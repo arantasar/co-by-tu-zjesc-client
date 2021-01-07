@@ -49,7 +49,9 @@ const Navbar: React.FC<RouteComponentProps> = (props) => {
       <Container>
         <Toolbar>
           <NavLink to="/" className="spacer">
-            <Typography variant="h6">CoByTuZjeść?</Typography>
+            <Typography variant="h6" color={"secondary"}>
+              CoByTuZjeść?
+            </Typography>
           </NavLink>
           {buttons}
         </Toolbar>
