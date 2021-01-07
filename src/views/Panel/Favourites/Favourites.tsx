@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "../Add/Add.module.scss";
 import styled from "styled-components";
 import axios from "../../../axios";
@@ -14,22 +14,24 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import placeholder from "./../../../assets/placeholders/meal-placeholder.jpg";
 import { Link } from "react-router-dom";
 import IUser from "../../../models/IUser";
+import UniversalDialog from "../../../components/organisms/UniversalDialog/UniversalDialog";
 
 const Favourites = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState("");
   const { user, updateUser, token } = useContext(UserContext);
 
   const refresh = (user: IUser) => {
-    console.log(user);
     updateUser(user);
   };
 
-  const removeHandler = (id: string) => {
+  const removeHandler = () => {
     const url = "recipes/favourites/";
 
     axios
       .post(
         url,
-        { id },
+        { id: idToDelete },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,6 +40,10 @@ const Favourites = () => {
       )
       .then((res) => {
         refresh(res.data.user);
+      })
+      .finally(() => {
+        setShowModal(false);
+        setIdToDelete("");
       });
   };
 
@@ -98,7 +104,8 @@ const Favourites = () => {
                             color={"secondary"}
                             cursor="pointer"
                             onClick={() => {
-                              removeHandler(row.id);
+                              setIdToDelete(row.id);
+                              setShowModal(true);
                             }}
                           />{" "}
                         </TableCell>
@@ -110,6 +117,13 @@ const Favourites = () => {
           </Grid>
         </Grid>
       </Container>
+      <UniversalDialog
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={removeHandler}
+        header={"Usuń z ulubionych"}
+        text={"Czy usunąć przepis z ulubionych"}
+      />
     </div>
   );
 };
