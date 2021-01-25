@@ -2,19 +2,11 @@ import React, { useContext } from "react";
 import styles from "./UserInfo.module.scss";
 import avatar from "../../../assets/avatar.png";
 import UserContext from "../../../context/UserContext";
+import { getDaysInService } from "../../../helpers";
 
 const UserInfo = () => {
   const { user } = useContext(UserContext);
-
-  const dateCreated = (user && user.dateCreated) || "";
-  const day = dateCreated.slice(0, 2);
-  const month = dateCreated.slice(3, 5);
-  const year = dateCreated.slice(6, 10);
-  const accountCreated = new Date(+year, +month - 1, +day);
-  const today = new Date();
-
-  const diffTime = Math.abs(+today - +accountCreated);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const diffDays = getDaysInService((user && user.dateCreated) || "");
 
   return (
     <div className={styles.UserPanel}>

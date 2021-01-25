@@ -20,4 +20,5 @@ export default interface IRecipe {
   size: number;
   prepareTime: number;
   userName: string;
+  itemId: string;
 }

@@ -63,6 +63,24 @@ const Buttons: FC<IButttonsProps> = ({
     },
   ];
 
+  const addToMyWeek = () => {
+    axios
+      .post(
+        "/users/week",
+        {
+          recipeId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then(() => {
+        history.push("/panel/week");
+      });
+  };
+
   const iconClickHandler = (icon: string) => {
     let url = "";
     if (icon === "favourites") {
@@ -100,11 +118,7 @@ const Buttons: FC<IButttonsProps> = ({
         Generuj listę zakupów
       </Button>
       <StyledButton>
-        <Button
-          onClick={() => history.push("/shopping-list/" + id)}
-          variant="contained"
-          color="primary"
-        >
+        <Button onClick={addToMyWeek} variant="contained" color="primary">
           Dodaj do mojego tygodnia
         </Button>
       </StyledButton>

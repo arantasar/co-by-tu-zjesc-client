@@ -8,7 +8,7 @@ export default interface IUser {
   lastLogin: string;
   role: string;
   favourites: IRecipe[];
-  recipes: object[];
+  recipes: IRecipe[];
   photoPath: string;
   daysInService: number;
   receivedLikes: number;

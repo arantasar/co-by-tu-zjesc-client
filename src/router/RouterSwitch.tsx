@@ -12,6 +12,7 @@ import RecipeUpdate from "../views/Panel/RecipeUpdate/RecipeUpdate";
 import UserRecipes from "../views/Panel/UserRecipes/UserRecipes";
 import ShoppingList from "../views/ShoppingList/ShoppingList";
 import Favourites from "../views/Panel/Favourites/Favourites";
+import Week from "../views/Week/Week";
 
 const RouterSwitch = () => {
   const links = [
@@ -28,6 +29,7 @@ const RouterSwitch = () => {
     { path: "/panel/add", component: AddView },
     { path: "/panel/recipes", component: UserRecipes },
     { path: "/panel/favourites", component: Favourites },
+    { path: "/panel/week", component: Week },
     { path: "/panel", component: PanelView },
     {
       path: "/",

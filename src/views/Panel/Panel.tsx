@@ -55,7 +55,12 @@ const Panel = () => {
               >
                 Edytuj profil
               </Link>
-              <div className={styles.DashboardItem}></div>
+              <Link
+                to={"/panel/week"}
+                className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
+              >
+                Mój tydzień
+              </Link>
               <div className={styles.DashboardItem}></div>
             </div>
           </Grid>
