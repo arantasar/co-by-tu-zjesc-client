@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import Search from "../../components/organisms/Search/Search";
 import Item from "../../models/IItem";
 import useAppContext from "../../hooks/useAppContext";
+import axios from "./../../axios/";
+import IRecipe from "../../models/IRecipe";
 
 const HomeView = () => {
   const [showResults, setShowResults] = useState(false);
@@ -17,7 +19,16 @@ const HomeView = () => {
     diets: Item[],
     size: Item[]
   ): void => {
-    console.log(ingredients, categories, diets, size);
+    axios
+      .post<IRecipe[]>("/search", {
+        ingredients,
+        categories,
+        diets,
+        size,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
     setShowResults(true);
   };
 
