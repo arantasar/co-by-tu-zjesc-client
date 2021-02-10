@@ -4,6 +4,7 @@ import { Container } from "@material-ui/core";
 
 import picture from "../../../assets/spaghetti-big.webp";
 import { Link } from "react-router-dom";
+import IRecipe from "../../../models/IRecipe";
 
 const searchResults = (props: any) => {
   const shouldDisplay = {
@@ -12,27 +13,31 @@ const searchResults = (props: any) => {
 
   return (
     <Container style={shouldDisplay}>
-      <div className={styles.wrapper}>
-        <div>
-          <img className={styles.picture} src={picture} alt="pizza" />
-        </div>
-        <div>
-          <h2>
-            <Link to="/recipe/1" className={styles.link}>
-              Spaghetti Bolognese
-            </Link>
-          </h2>
-          <div className={styles.shortLine}> </div>
-          <p className={styles.time}>30 minut przygotowania</p>
-          <p className={styles.link}>Masz wszystkie składniki!</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            adipisci tempora aut sit dignissimos inventore minima atque commodi
-            nemo blanditiis repudiandae officia veniam, sunt, ipsum, obcaecati
-            laudantium vero fugiat. Eum!
-          </p>
-        </div>
-      </div>
+      {props.recipes.length ? (
+        props.recipes.map((r: IRecipe) => (
+          <div className={styles.wrapper} key={r.id}>
+            <div>
+              <img
+                className={styles.picture}
+                src={r.photoPath || picture}
+                alt={r.name}
+              />
+            </div>
+            <div>
+              <h2>
+                <Link to={`/recipe/${r.id}`} className={styles.link}>
+                  {r.name}
+                </Link>
+              </h2>
+              <div className={styles.shortLine}> </div>
+              <p className={styles.time}>{r.prepareTime} minut przygotowania</p>
+              <p>{r.description}</p>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div>Nie znaleziono przepisów, spróbuj jeszcze raz</div>
+      )}
     </Container>
   );
 };

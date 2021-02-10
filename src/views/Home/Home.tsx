@@ -10,6 +10,7 @@ import IRecipe from "../../models/IRecipe";
 
 const HomeView = () => {
   const [showResults, setShowResults] = useState(false);
+  const [recipesFound, setRecipesFound] = useState<IRecipe[]>([]);
 
   const { ingredients, diets, categories, newestRecipes } = useAppContext();
 
@@ -27,9 +28,11 @@ const HomeView = () => {
         size,
       })
       .then((res) => {
-        console.log(res.data);
+        setRecipesFound(res.data);
+      })
+      .finally(() => {
+        setShowResults(true);
       });
-    setShowResults(true);
   };
 
   return (
@@ -41,7 +44,7 @@ const HomeView = () => {
         diets={diets}
         search={handleSearch}
       />
-      <SearchResults showResults={showResults} />
+      <SearchResults showResults={showResults} recipes={recipesFound} />
       <RecipeCards newestRecipes={newestRecipes} />
     </>
   );
