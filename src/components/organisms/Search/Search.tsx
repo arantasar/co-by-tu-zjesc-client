@@ -37,19 +37,19 @@ const Search: React.FC<ISearchProps> = ({
   const [sizes] = useState<{ id: string; name: string }[]>([
     {
       id: "1",
-      name: "Tylko ja",
+      name: "Jedna osoba",
     },
     {
       id: "2",
-      name: "1",
+      name: "Dwie osoby",
     },
     {
       id: "3",
-      name: "2",
+      name: "Trzy osoby",
     },
     {
       id: "4",
-      name: "3",
+      name: "Cztery osoby",
     },
   ]);
 

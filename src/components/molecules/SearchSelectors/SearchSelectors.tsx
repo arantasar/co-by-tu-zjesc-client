@@ -55,7 +55,7 @@ const SearchSelectors: React.FC<ISearchSelectorsProps> = ({
       <SearchItem
         isActive={active === "sizes"}
         name="Porcja"
-        placeholder="Będą goście?"
+        placeholder="Dla ilu osób?"
         selectedItems={selectedNumber}
         activate={() => {
           setActive(active === "sizes" ? "" : "sizes");
