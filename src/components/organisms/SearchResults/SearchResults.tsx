@@ -6,6 +6,8 @@ import picture from "../../../assets/spaghetti-big.webp";
 import { Link } from "react-router-dom";
 import IRecipe from "../../../models/IRecipe";
 
+import styled from "styled-components";
+
 const searchResults = (props: any) => {
   const shouldDisplay = {
     display: props.showResults ? "block" : "none",
@@ -36,10 +38,18 @@ const searchResults = (props: any) => {
           </div>
         ))
       ) : (
-        <div>Nie znaleziono przepisów, spróbuj jeszcze raz</div>
+        <NoResult>Nie znaleziono przepisów, spróbuj jeszcze raz.</NoResult>
       )}
     </Container>
   );
 };
 
 export default searchResults;
+
+const NoResult = styled.div`
+  border: 2px solid red;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+  color: red;
+`;
