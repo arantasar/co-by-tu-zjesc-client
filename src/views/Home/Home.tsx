@@ -11,8 +11,8 @@ import IRecipe from "../../models/IRecipe";
 const HomeView = () => {
   const [showResults, setShowResults] = useState(false);
   const [recipesFound, setRecipesFound] = useState<IRecipe[]>([]);
-
   const { ingredients, diets, categories, newestRecipes } = useAppContext();
+  const [size, setSize] = useState<string>("1");
 
   const handleSearch = (
     ingredients: Item[],
@@ -20,6 +20,7 @@ const HomeView = () => {
     diets: Item[],
     size: Item[]
   ): void => {
+    setSize(size[0].id);
     axios
       .post<IRecipe[]>("/search", {
         ingredients,
@@ -44,10 +45,13 @@ const HomeView = () => {
         diets={diets}
         search={handleSearch}
       />
-      <SearchResults showResults={showResults} recipes={recipesFound} />
+      <SearchResults
+        size={size}
+        showResults={showResults}
+        recipes={recipesFound}
+      />
       <RecipeCards newestRecipes={newestRecipes} />
     </>
   );
 };
-
 export default HomeView;

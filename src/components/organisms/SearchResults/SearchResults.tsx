@@ -1,10 +1,7 @@
 import * as React from "react";
 import styles from "./SearchResults.module.scss";
 import { Container } from "@material-ui/core";
-import {
-  ThumbUpAlt,
-  FavoriteOutlined,
-} from "@material-ui/icons";
+import { ThumbUpAlt, FavoriteOutlined } from "@material-ui/icons";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import picture from "../../../assets/spaghetti-big.webp";
 import { Link } from "react-router-dom";
@@ -16,6 +13,7 @@ const searchResults = (props: any) => {
   const shouldDisplay = {
     display: props.showResults ? "block" : "none",
   };
+  const size = props.size;
 
   return (
     <Container style={shouldDisplay}>
@@ -31,7 +29,7 @@ const searchResults = (props: any) => {
             </div>
             <div>
               <h2>
-                <Link to={`/recipe/${r.id}`} className={styles.link}>
+                <Link to={`/recipe/${r.id}/${size}`} className={styles.link}>
                   {r.name}
                 </Link>
               </h2>

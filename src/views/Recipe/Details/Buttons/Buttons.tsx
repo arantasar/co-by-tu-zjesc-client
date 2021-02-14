@@ -29,7 +29,7 @@ const Buttons: FC<IButttonsProps> = ({
   refresh,
 }) => {
   const user = useContext(UserContext);
-  const { id } = useParams();
+  const { id, size } = useParams();
   const history = useHistory();
   const FavouriteIcon = () => {
     if (id && user.user) {
@@ -69,6 +69,7 @@ const Buttons: FC<IButttonsProps> = ({
         "/users/week",
         {
           recipeId: id,
+          size,
         },
         {
           headers: {
@@ -111,7 +112,12 @@ const Buttons: FC<IButttonsProps> = ({
     <div className={styles.wrapper}>
       <Button
         fullWidth
-        onClick={() => history.push("/shopping-list/" + id)}
+        onClick={() => {
+          const url = size
+            ? `/shopping-list/${id}/${size}`
+            : `/shopping-list/${id}`;
+          history.push(url);
+        }}
         variant="contained"
         color="secondary"
       >

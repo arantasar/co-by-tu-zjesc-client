@@ -16,11 +16,11 @@ const ShoppingList = () => {
       setDeleted((prev) => [...prev, newId]);
     }
   };
-  const { id } = useParams();
+  const { id, size } = useParams();
 
   useEffect(() => {
     axios
-      .get<IRecipe>(`/recipes/${id}/true`)
+      .get<IRecipe>(`/recipes/${id}/${size}/true`)
       .then((res) => setRecipe(res.data));
   }, [id]);
 

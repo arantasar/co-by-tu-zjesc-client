@@ -20,10 +20,12 @@ const Recipe: FC<RecipeProps> = () => {
     }
   };
 
-  let { id } = useParams();
+  const { id, size } = useParams();
+  const url = size ? `/recipes/${id}/${size}` : `/recipes/${id}`;
 
   useEffect(() => {
-    axios.get<IRecipe>("/recipes/" + id).then((res) => {
+    console.log(url);
+    axios.get<IRecipe>(url).then((res) => {
       setRecipe(res.data);
     });
   }, [id]);

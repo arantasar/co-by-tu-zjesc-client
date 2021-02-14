@@ -16,9 +16,9 @@ import Week from "../views/Week/Week";
 
 const RouterSwitch = () => {
   const links = [
-    { path: "/recipe/:id", component: RecipeView },
+    { path: "/recipe/:id/:size?", component: RecipeView },
     { path: "/register", component: RegisterView },
-    { path: "/shopping-list/:id", component: ShoppingList },
+    { path: "/shopping-list/:id/:size?", component: ShoppingList },
     { path: "/admin", component: AdminView },
     { path: "/login", component: LoginView },
     {
