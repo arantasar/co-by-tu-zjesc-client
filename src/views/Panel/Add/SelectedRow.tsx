@@ -25,6 +25,7 @@ const SelectedRow: FC<ISelectedRowProps> = ({
   unitHandler,
   quantityHandler,
 }) => {
+    console.log(ingredient);
   return (
     <TableRow key={ingredient.name}>
       <TableCell component="th" scope="row">

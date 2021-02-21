@@ -17,12 +17,15 @@ import { Link } from "react-router-dom";
 import IRecipe from "../../../models/IRecipe";
 import UniversalDialog from "../../../components/organisms/UniversalDialog/UniversalDialog";
 import IUser from "../../../models/IUser";
+import { useHistory } from "react-router";
 
 const UserRecipes = () => {
   const { user, updateUser, token } = useContext(UserContext);
   const [showModal, setShowModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState("");
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
+
+  const nav = useHistory();
 
   const getUserRecipes = () => {
     const id = (user && user.id) || "lub id z urla";
@@ -117,7 +120,7 @@ const UserRecipes = () => {
                           color={"secondary"}
                           cursor="pointer"
                           onClick={() => {
-                            console.log(row.id);
+                            nav.push(`/panel/update/${row.id}`);
                           }}
                         />
                       </TableCell>

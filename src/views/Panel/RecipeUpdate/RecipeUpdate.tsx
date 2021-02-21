@@ -16,18 +16,26 @@ import useAppContext from "../../../hooks/useAppContext";
 import Diets from "../Add/Diets/Diets";
 import UniversalModal from "../../../components/organisms/UniversalModal";
 import { useParams } from "react-router-dom";
+import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileButton";
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const RecipeUpdate = () => {
+  const nav = useHistory();
   const ctx = useContext(UserContext);
   const { id } = useParams();
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [ingredients, setIngredients] = useState<IIngredient[]>([]);
+  const [size, setSize] = useState<number>(0);
+  const [prepareTime, setPrepareTime] = useState<number>(0);
   const [selectedIngredients, setSelectedIngredients] = useState<
     IExtendedIngredient[]
   >([]);
   const [selectedCategories, setSelectedCategories] = useState<ICategory[]>([]);
   const [selectedDiets, setSelectedDiets] = useState<IDiet[]>([]);
+  const [file, setFile] = useState<File>();
+  const [photoPreview, setPhotoPreview] = useState<string>("");
 
   const [modalOpen, setModalOpen] = useState(false);
   const [header, setHeader] = useState("");
@@ -37,6 +45,12 @@ const RecipeUpdate = () => {
 
   const handleClose = () => {
     setModalOpen(false);
+    nav.push("/recipe/" + id);
+  };
+
+  const fileUploadChange = (event: HTMLInputElement | null) => {
+    const file = event && event.files ? event.files[0] : undefined;
+    setFile(file);
   };
 
   const selectCategoryHandler = (
@@ -77,11 +91,27 @@ const RecipeUpdate = () => {
     });
 
     axios.get(`/recipes/${id}`).then((res) => {
-      console.log(res.data);
-      const { categories, diets, name, description } = res.data;
+      const {
+        categories,
+        diets,
+        name,
+        description,
+        recipeLines,
+        size,
+        prepareTime,
+        photoPath,
+      } = res.data;
       setDescription(description);
-      setSelectedIngredients(ingredients as IExtendedIngredient[]);
+      const mappedIngredients = recipeLines.map((line: any) => ({
+        quantity: line.amount,
+        ...line,
+        ...line.ingredient,
+      }));
+      setSelectedIngredients(mappedIngredients as IExtendedIngredient[]);
       setName(name);
+      setPrepareTime(prepareTime);
+      setSize(size);
+      setPhotoPreview(photoPath);
       setSelectedCategories(categories as ICategory[]);
       setSelectedDiets(diets as IDiet[]);
     });
@@ -89,6 +119,21 @@ const RecipeUpdate = () => {
 
   const clickHandler = (ingredient: IIngredient) => {
     setSelectedIngredients((prev) => [...prev, { ...ingredient, quantity: 0 }]);
+  };
+
+  const handlePrepareTimeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const prepareTime = +event.target.value;
+    if (prepareTime >= 0) {
+      setPrepareTime(prepareTime);
+    }
+  };
+  const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const size = +event.target.value;
+    if (size >= 0) {
+      setSize(+size);
+    }
   };
 
   const clickHandlerReverse = (id: string) => {
@@ -138,23 +183,29 @@ const RecipeUpdate = () => {
         ingredient: rest,
       })
     );
-    const data = {
-      name,
-      description,
-      recipeLines,
-      categories: selectedCategories,
-      diets: selectedDiets,
-    };
+
+    const data = new FormData();
+
+    if (file) {
+      data.append("photo", file as Blob);
+    }
+    data.append("name", name);
+    data.append("description", description);
+    data.append("size", String(size));
+    data.append("prepareTime", String(prepareTime));
+    data.append("recipeLines", JSON.stringify(recipeLines));
+    data.append("categories", JSON.stringify(selectedCategories));
+    data.append("diets", JSON.stringify(selectedDiets));
 
     axios
-      .post("/recipes", data, {
+      .post(`/recipes/update/${id}`, data, {
         headers: {
           Authorization: `Bearer ${ctx.token}`,
         },
       })
-      .then(() => {
-        setHeader("Przepis dodany");
-        setText("Przepis został dodany!");
+      .then((res) => {
+        setHeader("Przepis zaktualizowany");
+        setText("Przepis został zaktualizowany!");
         setModalOpen(true);
       })
       .catch((err) => {
@@ -205,7 +256,15 @@ const RecipeUpdate = () => {
               description={description}
               setDescription={handleDescription}
             />
-            <div>Zdjęcie</div>
+            <PhotoPreview>
+              <img src={photoPreview} />
+            </PhotoPreview>
+            <OpenFileButton
+              fileName={
+                (file && file.name) || photoPreview ? "Zmień zdjęcie" : ""
+              }
+              fileUploadChange={fileUploadChange}
+            />
             <div>
               <Categories
                 categories={categories}
@@ -216,6 +275,30 @@ const RecipeUpdate = () => {
                 diets={diets}
                 selectedDiets={selectedDiets}
                 selectDietHandler={selectDietsHandler}
+              />
+            </div>
+            <div>
+              <h3>Czas przygotowania</h3>
+              <TextField
+                className={styles.Name}
+                id="standard-basic"
+                label="Czas przygotowania (w minutach)"
+                color="secondary"
+                value={prepareTime}
+                type={"number"}
+                onChange={handlePrepareTimeChange}
+              />
+            </div>
+            <div>
+              <h3>Wielkość porcji</h3>
+              <TextField
+                className={styles.Name}
+                id="standard-basic"
+                label="Wielkość porcji (na ile osób)"
+                color="secondary"
+                value={size}
+                type={"number"}
+                onChange={handleSizeChange}
               />
             </div>
             <Button
@@ -241,3 +324,7 @@ const RecipeUpdate = () => {
 };
 
 export default RecipeUpdate;
+
+const PhotoPreview = styled.div`
+  margin-top: 20px;
+`;

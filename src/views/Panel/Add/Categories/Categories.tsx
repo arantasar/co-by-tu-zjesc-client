@@ -22,7 +22,7 @@ const Categories: React.FC<IProps> = ({
           control={
             <Checkbox
               id={category.id}
-              checked={selectedCategories.includes(category)}
+              checked={!!selectedCategories.find((cat) => cat.id === category.id)}
               onChange={selectCategoryHandler}
             />
           }
