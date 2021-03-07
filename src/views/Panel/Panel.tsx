@@ -40,7 +40,12 @@ const Panel = () => {
               >
                 Dodaj przepis
               </Link>
-              <div className={styles.DashboardItem}></div>
+              <Link
+                to={"/panel/ingredients"}
+                className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
+              >
+                Dodaj składnik
+              </Link>
               <Link
                 to={"panel/favourites"}
                 className={`${styles.DashboardItem} ${styles.DashboardItemActive}`}
