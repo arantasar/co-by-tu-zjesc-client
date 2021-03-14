@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./SearchBoard.module.scss";
 import "./SearchBoard.scss";
@@ -18,6 +18,14 @@ const SearchBoard: React.FC<ISearchBoardProps> = ({
   selectedItems,
   changeHandler,
 }) => {
+  const [size, setSize] = useState<number>(1);
+
+  const handleSizeChange = (size: number) => {
+    setSize(size);
+    const sizeAsString = String(size);
+    changeHandler({ id: sizeAsString, name: sizeAsString });
+  };
+
   const checked = (item: Item) => {
     return selectedItems.map((item) => item.id).includes(item.id);
   };
@@ -44,7 +52,19 @@ const SearchBoard: React.FC<ISearchBoardProps> = ({
   return (
     <div className={styles.wrapper}>
       {offsetDivs}
-      <div className={styles.items}>{displayItems}</div>
+      {offsetDivs.length < 3 ? (
+        <div className={styles.items}>{displayItems}</div>
+      ) : (
+        <div>
+          <input
+            className={styles.searchInput}
+            type={"number"}
+            min={"1"}
+            value={size}
+            onChange={(e) => handleSizeChange(e.target.valueAsNumber)}
+          />
+        </div>
+      )}
     </div>
   );
 };

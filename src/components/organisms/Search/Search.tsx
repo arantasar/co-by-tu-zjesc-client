@@ -29,7 +29,9 @@ const Search: React.FC<ISearchProps> = ({
   const [selectedIngredients, setSelectedIngredients] = useState<Item[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Item[]>([]);
   const [selectedDiets, setSelectedDiets] = useState<Item[]>([]);
-  const [selectedSize, setSelectedSize] = useState<Item[]>([]);
+  const [selectedSize, setSelectedSize] = useState<Item[]>([
+    { id: "1", name: "1" },
+  ]);
 
   const [items, setItems] = useState<Item[]>([]);
   const [offset, setOffset] = useState<number>(0);
