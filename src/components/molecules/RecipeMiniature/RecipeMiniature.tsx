@@ -20,18 +20,15 @@ const RecipeMiniature: React.FC<IRecipe> = ({
     <Stats>
       <div>
         <FontAwesomeIcon color={"black"} icon={faEye} />
-        {/*<div>{viewCounter}</div>*/}
-        <div>10</div>
+        <div>{viewCounter}</div>
       </div>
       <div>
         <FontAwesomeIcon color={"red"} icon={faHeart} />
-        {/*<div>{inFavourite}</div>*/}
-        <div>20</div>
+        <div>{inFavourite}</div>
       </div>
       <div>
         <FontAwesomeIcon color={"blue"} icon={faThumbsUp} />
-        {/*<div>{likes}</div>*/}
-        <div>22</div>
+        <div>{likes}</div>
       </div>
     </Stats>
   </StyledComponent>
