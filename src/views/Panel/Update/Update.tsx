@@ -7,6 +7,7 @@ import UserContext from "../../../context/UserContext";
 import OpenFileButton from "../../../components/atoms/OpenFileButton/OpenFileButton";
 import UniversalModal from "../../../components/organisms/UniversalModal";
 import TextArea from "../../../components/atoms/TextArea/TextArea";
+import { API } from "../../../config/config";
 
 const UpdateView = () => {
   const ctx = useContext(UserContext);
@@ -39,7 +40,7 @@ const UpdateView = () => {
     data.append("email", email);
 
     axios({
-      url: "http://localhost:5000/api/users/update",
+      url: `${API}/users/update`,
       method: "POST",
       data,
       headers: {

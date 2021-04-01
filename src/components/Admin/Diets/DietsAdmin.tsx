@@ -4,6 +4,7 @@ import styles from "./DietsAdmin.module.scss";
 import IDiet from "../../../models/IDiet";
 import DietsTable from "./DietsTable/DietsTable";
 import NewDiet from "./NewDiet/NewDiet";
+import { API } from "../../../config/config";
 
 const DietsAdmin = () => {
   const [diets, setDiets] = useState<IDiet[]>([]);
@@ -11,7 +12,7 @@ const DietsAdmin = () => {
 
   const deleteDiet = (id: string) =>
     axios
-      .delete("http://localhost:5000/api/diets/" + id)
+      .delete(`${API}/diets/` + id)
       .then(() => getDiets())
       .catch((err) => {
         alert(err.response.data.message);
@@ -19,7 +20,7 @@ const DietsAdmin = () => {
 
   const addDiet = () => {
     axios
-      .post("http://localhost:5000/api/diets", {
+      .post(`${API}/diets`, {
         name: diet,
       })
       .then(() => getDiets())
@@ -32,7 +33,7 @@ const DietsAdmin = () => {
   };
 
   const getDiets = () =>
-    axios.get<IDiet[]>("http://localhost:5000/api/diets").then((res) => {
+    axios.get<IDiet[]>(`${API}/diets`).then((res) => {
       setDiets(res.data);
     });
 

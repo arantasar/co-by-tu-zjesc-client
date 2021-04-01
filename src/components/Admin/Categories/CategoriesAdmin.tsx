@@ -4,6 +4,7 @@ import styles from "./CategoriesAdmin.module.scss";
 import ICategory from "../../../models/ICategory";
 import CategoriesTable from "./CategoriesTable/CategoriesTable";
 import NewCategory from "./NewCategory/NewCategory";
+import { API } from "../../../config/config";
 
 const CategoriesAdmin = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -11,7 +12,7 @@ const CategoriesAdmin = () => {
 
   const deleteCategory = (id: string) =>
     axios
-      .delete("http://localhost:5000/api/categories/" + id)
+      .delete(`${API}/categories/${id}`)
       .then(() => getCategories())
       .catch((err) => {
         alert(err.response.data.message);
@@ -19,7 +20,7 @@ const CategoriesAdmin = () => {
 
   const addCategory = () => {
     axios
-      .post("http://localhost:5000/api/categories", {
+      .post(`${API}/categories`, {
         name: category,
       })
       .then(() => getCategories())
@@ -32,11 +33,9 @@ const CategoriesAdmin = () => {
   };
 
   const getCategories = () =>
-    axios
-      .get<ICategory[]>("http://localhost:5000/api/categories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+    axios.get<ICategory[]>(`${API}/categories`).then((res) => {
+      setCategories(res.data);
+    });
 
   useEffect(() => {
     getCategories();

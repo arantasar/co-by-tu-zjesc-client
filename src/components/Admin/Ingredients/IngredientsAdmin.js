@@ -16,6 +16,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import DeleteIcon from "@material-ui/icons/Delete";
 import OpenFileButton from "../../atoms/OpenFileButton/OpenFileButton";
 import placeholder from "./../../../assets/placeholders/ingredient-placeholder.svg";
+import { API } from "../../../config/config";
 
 const IngredientsAdmin = () => {
   const [items, setItems] = useState([]);
@@ -26,8 +27,8 @@ const IngredientsAdmin = () => {
 
   const deleteIngredient = (id) =>
     axios
-      .delete("http://localhost:5000/api/ingredients/" + id)
-      .then(() => axios.get("http://localhost:5000/api/ingredients"))
+      .delete(`${API}/ingredients/${id}`)
+      .then(() => axios.get(`${API}/ingredients`))
       .then((res) => {
         setItems(res.data);
       })
@@ -59,10 +60,10 @@ const IngredientsAdmin = () => {
 
     axios({
       method: "post",
-      url: "http://localhost:5000/api/ingredients",
+      url: `${API}/ingredients`,
       data: data,
     })
-      .then(() => axios.get("http://localhost:5000/api/ingredients"))
+      .then(() => axios.get(`${API}/ingredients`))
       .then((res) => {
         setItems(res.data);
         setNewIngredient("");
@@ -81,8 +82,8 @@ const IngredientsAdmin = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:5000/api/ingredients"),
-      axios.get("http://localhost:5000/api/units"),
+      axios.get(`${API}/ingredients`),
+      axios.get(`${API}/units`),
     ]).then((values) => {
       const [ingredients, units] = values;
       setUnits(units.data);

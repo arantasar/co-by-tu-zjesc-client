@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./UnitsAdmin.module.scss";
 import UnitsTable from "./UnitsTable/UnitsTable";
 import NewUnit from "./NewUnit/NewUnit";
+import {API} from "../../../config/config";
 
 const UnitsAdmin = () => {
   const [items, setItems] = useState([]);
@@ -10,7 +11,7 @@ const UnitsAdmin = () => {
 
   const deleteUnit = (id) =>
     axios
-      .delete("http://localhost:5000/api/units/" + id)
+      .delete(`${API}/units/${id}`)
       .then(() => getUnits())
       .catch((err) => {
         alert(err.response.data.message);
@@ -18,7 +19,7 @@ const UnitsAdmin = () => {
 
   const addUnit = () => {
     axios
-      .post("http://localhost:5000/api/units", {
+      .post(`${API}/units`, {
         name: unitName,
       })
       .then(() => getUnits())
@@ -31,7 +32,7 @@ const UnitsAdmin = () => {
   };
 
   const getUnits = () =>
-    axios.get("http://localhost:5000/api/units").then((res) => {
+    axios.get(`${API}/units`).then((res) => {
       setItems(res.data);
     });
 
