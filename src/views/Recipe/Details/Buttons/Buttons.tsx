@@ -123,11 +123,14 @@ const Buttons: FC<IButttonsProps> = ({
       >
         Generuj listę zakupów
       </Button>
-      <StyledButton>
-        <Button onClick={addToMyWeek} variant="contained" color="primary">
-          Dodaj do mojego tygodnia
-        </Button>
-      </StyledButton>
+      {user.user && (
+        <StyledButton>
+          <Button onClick={addToMyWeek} variant="contained" color="primary">
+            Dodaj do mojego tygodnia
+          </Button>
+        </StyledButton>
+      )}
+
       {icons.map((icon, index) => (
         <Icon
           onClick={() => iconClickHandler(icon.name)}
