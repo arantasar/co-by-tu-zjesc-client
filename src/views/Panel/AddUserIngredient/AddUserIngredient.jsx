@@ -54,10 +54,10 @@ const AddUserIngredient = () => {
 
     axios({
       method: "post",
-      url: "http://localhost:5000/api/ingredients",
+      url: "/ingredients",
       data: data,
     })
-      .then(() => axios.get("http://localhost:5000/api/ingredients"))
+      .then(() => axios.get("/ingredients"))
       .then((res) => {
         setItems(res.data);
         setNewIngredient("");
@@ -75,14 +75,13 @@ const AddUserIngredient = () => {
   };
 
   useEffect(() => {
-    Promise.all([
-      axios.get("http://localhost:5000/api/ingredients"),
-      axios.get("http://localhost:5000/api/units"),
-    ]).then((values) => {
-      const [ingredients, units] = values;
-      setUnits(units.data);
-      setItems(ingredients.data);
-    });
+    Promise.all([axios.get("/ingredients"), axios.get("/units")]).then(
+      (values) => {
+        const [ingredients, units] = values;
+        setUnits(units.data);
+        setItems(ingredients.data);
+      }
+    );
   }, []);
 
   const refresh = (user) => {
